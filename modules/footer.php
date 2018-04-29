@@ -1,5 +1,5 @@
-<footer>
-  <div class="container-fluid bg-dark">
+<footer class="bg-dark">
+  <div class="container-fluid">
   <div class="row justify-content-center text-center align-items-center">
 		<div class="d-none d-lg-block col-lg-4 text-muted">
 			<span><strong>Presentations</strong> is a project by:</span>
