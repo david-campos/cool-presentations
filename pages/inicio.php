@@ -1,15 +1,14 @@
-<div class="container-fluid">
-	<h1>Holi, mundi!</h1>
-	<div class="row">
-		<div class="col-md-8 offset-md-2">
+<main role="main" class="container-fluid">
+	<div class="row justify-content-center">
+		<div class="col text-center">
 			<canvas id="the-canvas"></canvas>
 		</div>
 	</div>
 
-	<div class="row">
-		<button id="prev">Previous</button>
-		<button id="next">Next</button>
+	<div class="row justify-content-center ">
+		<button class="btn-primary" id="prev">Previous</button> &nbsp;
+		<button class="btn-primary" id="next">Next</button>
 		&nbsp; &nbsp;
 		<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
 	</div>
-</div>
+</main>

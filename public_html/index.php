@@ -1,5 +1,5 @@
 <?php
-	// pages maps the page key to the page files names, this are the only
+	// $pages maps the page key to the page files names, this are the only
 	// allowed pages to load into the body (preventing attacks)
 	$pages = ['ini'=>'inicio'];
 	// Some variables to configure the pages directory and scripts file
@@ -34,7 +34,8 @@
 	// Header
 	include '../modules/header.php';
 	echo "\n";
-	
+?>
+<?php	
 	// Look for the page and insert it if it is a legal page
 	$current_page_file = "";
 	if(array_key_exists($current_page_key, $pages)) {
@@ -42,7 +43,7 @@
 		include $pages_dir.$current_page_file.'.php';
 	} else {
 ?>
-		<div class="container-fluid">
+		<main role="main" class="container-fluid">
 			<div class="row">
 				<div class="col-md-8 offset-md-2">
 					<div class="alert alert-danger">
@@ -51,9 +52,11 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</main>
 <?php
 	}
+?>
+<?php
 	echo "\n";
 	
 	// Footer
