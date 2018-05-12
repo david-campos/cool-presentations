@@ -5,9 +5,9 @@ $(document).ready(()=>{
     let errorsAlert = $('#form-errors');
     let loader = $(".loader");
     
-    form.submit((event) => {event.preventDefault(); log.click();});
+    form.submit((event) => {event.preventDefault();});
     log.click((event)=>{onClickPre("login.php")});
-    reg.click((event)=>{onClickPre("register.php")});
+    reg.click((event)=>{onClickPre("register.php");});
     
     function onClickPre(url) {
         errorsAlert.hide();
@@ -27,18 +27,24 @@ $(document).ready(()=>{
         // hide form and show loading
         form.hide();
         loader.show();
+        console.log(url);
         // AJAX connection
         $.ajax({url: url,
                 data: {nick: nick, pass: pass},
+                method: "POST",
                 dataType: "text"})
             .done((data, textStatus, jqXHR) => {
                 loader.hide();
-                // Logged! :)
+                // Logged/registered! :)
                 errorsAlert
                     .removeClass("alert-danger")
                     .addClass("alert-success")
                     .text(jqXHR.responseText)
                     .show();
+                // For register
+                if(url === "register.php") {
+                    onClickPre("login.php"); // Let's log-in
+                }
             })
             .fail((jqXHR) => {
                 form.show();
