@@ -6,70 +6,66 @@ $(document).ready(()=>{
     var startX,
     startY,
     dist,
-    threshold = 50, //required min distance traveled to be considered swipe
-    allowedTime = 150, // maximum time allowed to travel that distance
+    threshold = $( window ).width() / 3.0, //required min distance traveled to be considered swipe
+    allowedTime = 300, // maximum time allowed to travel that distance
     elapsedTime,
     startTime;
     
-
-
-    window.addEventListener('touchstart', function(e){
-        //touchsurface.innerHTML = ''
+    // Object to do the swap on
+    var doSwapOn = window;
+    
+    doSwapOn.addEventListener('touchstart', function(e){
+        console.log("touchstart");
         var touchobj = e.changedTouches[0]
         dist = 0
         startX = touchobj.pageX
         startY = touchobj.pageY
         startTime = new Date().getTime() // record time when finger first makes contact with surface
         e.preventDefault()
+    }, false)
         
-        event.target.addEventListener('touchmove', function(e){
-            e.preventDefault() // prevent scrolling when inside DIV
-        }, false)
-        
-        event.target.addEventListener('touchend', function(e){
-            var touchobj = e.changedTouches[0]
-            dist = touchobj.pageX - startX // get total dist traveled by finger while in contact with surface
-            elapsedTime = new Date().getTime() - startTime // get time elapsed
-            // check that elapsed time is within specified, horizontal dist traveled >= threshold, and vertical dist traveled <= 100
-            var swiperightBol = (elapsedTime <= allowedTime && Math.abs(dist) >= threshold && Math.abs(touchobj.pageY - startY) <= 100)
-            
-            var dir_str = "none";
-            var dir_int = 0;
-            if(swiperightBol){
-                if(dist > 0){
-                    dir_str = "RIGHT";
-                    dir_int = 1;
-                }else{
-                    dir_str = "LEFT";
-                    dir_int = 2;
-                }
-                var _e = new CustomEvent("swap", {
-                    target : event.target,
-                    detail: {		
-                        direction : dir_str,
-                        direction_int : dir_int
-                    },
-                    bubbles: true,
-                    cancelable: true
-                });
-                trigger(event.target,"Swap",_e);			
+    doSwapOn.addEventListener('touchmove', function(e){
+        e.preventDefault() // prevent scrolling when inside DIV
+    }, false)
+    
+    doSwapOn.addEventListener('touchend', function(e){
+        var touchobj = e.changedTouches[0]
+        dist = touchobj.pageX - startX // get total dist traveled by finger while in contact with surface
+        elapsedTime = new Date().getTime() - startTime // get time elapsed
+        // check that elapsed time is within specified, horizontal dist traveled >= threshold, and vertical dist traveled <= 100
+        var swiperightBol = (elapsedTime <= allowedTime && Math.abs(dist) >= threshold && Math.abs(touchobj.pageY - startY) <= 100)
+        console.log("swiperightBol ", swiperightBol, "dist", dist, "elapsedTime", elapsedTime)
+        var dir_str = "none";
+        var dir_int = 0;
+        if(swiperightBol){
+            if(dist > 0){
+                dir_str = "RIGHT";
+                dir_int = 1;
+            }else{
+                dir_str = "LEFT";
+                dir_int = 2;
             }
-            
-            //handleswipe(swiperightBol, event.target);
-            e.preventDefault()
-        }, false)
-
-        function trigger(elem, name, event) {
-        
-            elem.dispatchEvent(event);
-            eval(elem.getAttribute('on' + name));
+            var _e = new CustomEvent("swap", {
+                target : event.target,
+                detail: {		
+                    direction : dir_str,
+                    direction_int : dir_int
+                },
+                bubbles: true,
+                cancelable: true
+            });
+            trigger(event.target,"Swap",_e);			
         }
         
+        //handleswipe(swiperightBol, event.target);
+        e.preventDefault()
     }, false)
 
-
-
-
+    function trigger(elem, name, event) {
+        elem.dispatchEvent(event);
+        eval(elem.getAttribute('on' + name));
+    }
+    
 	// Loaded via <script> tag, create shortcut to access PDF.js exports.
 	var pdfjsLib = window['pdfjs-dist/build/pdf'];
 
@@ -156,10 +152,10 @@ $(document).ready(()=>{
     document.getElementById('next').addEventListener('click', onNextPage);
     
     window.addEventListener("swap", function(event) {
+        console.log("swap");
         if (event.defaultPrevented) {
             return;
         }
-
         if (event.detail.direction == "RIGHT") {
             onPrevPage()
         }
