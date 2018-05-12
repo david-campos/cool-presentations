@@ -31,6 +31,19 @@ canvas {
   width: 100%;
 }
 
+input.bigCheckbox {
+  width: 2em;
+  height: 2em;
+  margin-top: -0.2em;
+}
+
+span.bigCheckboxLabel {
+  margin-left: 1.5em;
+  font-size: 1.2em;
+  position: relative;
+  top: -0.1em;
+}
+
 /* Medium size */
 @media (min-width: 768px) {
   body {
