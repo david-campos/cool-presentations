@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`password` CHAR(128) NOT NULL,
 	`salt` CHAR(128) NOT NULL,
 	
-	PRIMARY KEY (`user_id`)
+	PRIMARY KEY (`user_id`),
+    UNIQUE (`user_name`)
 );
 
 -- Presentations table

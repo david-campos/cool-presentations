@@ -1,7 +1,10 @@
 <?php
-	// $pages maps the page key to the page files names, this are the only
+    // Php session start
+    session_start();
+	
+    // $pages maps the page key to the page files names, this are the only
 	// allowed pages to load into the body (preventing attacks)
-	$pages = ['ini'=>'inicio', 'view'=>'viewer'];
+	$pages = ['ini'=>'inicio', 'view'=>'viewer', 'log'=>'login'];
 	// Some variables to configure the pages directory and scripts file
 	$pages_dir = '../pages/';
 	$pages_scripts_file_sufix = "_scripts";
@@ -67,7 +70,7 @@
 ?>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 	<!-- pdf.js -->
