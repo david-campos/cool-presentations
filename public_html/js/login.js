@@ -41,9 +41,12 @@ $(document).ready(()=>{
                     .addClass("alert-success")
                     .text(jqXHR.responseText)
                     .show();
-                // For register
                 if(url === "register.php") {
+                    // For register
                     onClickPre("login.php"); // Let's log-in
+                } else if (url === "login.php") {
+                    // For login
+                    window.location.replace("./");
                 }
             })
             .fail((jqXHR) => {

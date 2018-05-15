@@ -23,6 +23,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="icon" type="image/png" href="favicon_16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="favicon_48.png" sizes="48x48">
+    <link rel="icon" type="image/png" href="favicon_96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="favicon_192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="favicon_32.png" sizes="32x32">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
