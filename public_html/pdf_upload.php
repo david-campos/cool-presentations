@@ -11,15 +11,7 @@
 
 header('Content-type:application/json;charset=utf-8');
 
-
-require dirname(__FILE__) . '/../../include/database_connection.php';
-
-if ($mysqli->connect_error) {
-    http_response_code(500);
-    die('Connection error (' . $mysqli->connect_errno . ') '
-            . $mysqli->connect_error);
-}
-
+require dirname(__FILE__) . '/../include/database_connection.php';
 
 $fecha1 = new DateTime();
 $fecha1 = $fecha1->getTimestamp();
@@ -50,7 +42,7 @@ try {
             throw new RuntimeException('Unknown errors.');
     }
 	
-    $filepath = sprintf('files/%s_%s', uniqid(), $_FILES['file']['name']);
+    $filepath = sprintf('../uploaded_pdfs/%s_%s', uniqid(), $_FILES['file']['name']);
 
     if (!move_uploaded_file(
         $_FILES['file']['tmp_name'],
@@ -87,12 +79,10 @@ function insert_upload($id_code,$timeini,$timefin,$latitud,$longitud,$acces_code
 	$userid=25;
     $stmt->bind_param('sssddsi', $id_code,$timeini,$timefin,$latitud,$longitud,$acces_code,$userid);
     if(!$stmt->execute()) {
-        http_response_code(500);
         $stmt->close();
         $mysqli->close();
-        die('Error in the query '.$stmt->errno);
+        throw new RuntimeException('Error in the query '.$stmt->errno);
     }
     $stmt->close();
 	$mysqli->close();
-	
 }

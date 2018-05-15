@@ -6,7 +6,7 @@ $(function(){
    * UI functions ui_* can be located in: demo-ui.js
    */
   $('#drag-and-drop-zone').dmUploader({ //
-    url: 'pdfs/upload2.php',
+    url: './pdf_upload.php',
     maxFileSize: 3000000, // 3 Megs 
 	auto: false,
 	extFilter: ["pdf"],
