@@ -1,17 +1,16 @@
 <nav class="navbar navbar-dark bg-dark justify-content-between">
   <a class="navbar-brand" href=".">Presentations</a>
 <?php
-  if (!isset($_SESSION['user_id'])) {
-    // Do not show "login" buton on the login page
-    if ($current_page_key != 'log') {
+  if (!isset($_SESSION['user_id'])):
+    if($current_page_key != 'log'):
 ?>
   <ul class="nav navbar-nav navbar-right">
     <li class="nav-item"><a href="?p=log" class="btn btn-outline-success" type="button"><i class="fas fa-sign-in-alt"></i> Login</a></li>
   </ul>
 <?php
-    }
-  } else {
-      //When logged
+    endif;
+  else:
+    //When logged
 ?>
   <ul class="navbar-nav mr-auto">
     <li class="nav-item active"><a class="nav-link" href="?p=upload"><i class="fas fa-sign-plus"></i>New</a></li>
@@ -25,6 +24,6 @@
     </li>
   </ul>
 <?php
-  }
+  endif;
 ?>
 </nav>

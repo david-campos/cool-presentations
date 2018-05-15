@@ -6,7 +6,7 @@
 -- 	Author: David Campos Rodríguez <david.campos.r96@gmail.com>
 
 /*******************************************************************************
- * DATABASE VERSION = 1
+ * DATABASE VERSION = 2
  * 
  * NOT IMPLEMENTED:
  * 	Multiplicity of the relation "answers" on the side of SurveyAnswers (2..*)
@@ -17,6 +17,16 @@
 CREATE DATABASE IF NOT EXISTS  `database_1`;
 -- We select the database we've just created
 USE database_1;
+
+-- VERSION TABLE
+-- Used to store the version of the database so
+-- the code can use it to check the version is the right
+-- one.
+CREATE TABLE IF NOT EXISTS `table_version` (
+    `version` INT UNSIGNED NOT NULL PRIMARY KEY
+);
+-- Insert version
+INSERT INTO `table_version`(`version`) VALUES (2);
 
 -- TABLES CREATION
 -- Users table
@@ -38,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- It stores the information relative to the presentations in the system
 CREATE TABLE IF NOT EXISTS `presentations` (
 	`id_code` CHAR(128) NOT NULL,
+    `name` VARCHAR(100) NOT NULL,
 	`start_timestamp` TIMESTAMP NOT NULL,
 	`end_timestamp` TIMESTAMP, -- NULLABLE
 	`location_lat` DECIMAL(8,6), -- NULLABLE

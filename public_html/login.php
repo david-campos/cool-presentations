@@ -3,12 +3,6 @@ session_start();
 
 require dirname(__FILE__) . '/../include/database_connection.php';
 
-if ($mysqli->connect_error) {
-    http_response_code(500);
-    die('Connection error (' . $mysqli->connect_errno . ') '
-            . $mysqli->connect_error);
-}
-
 check_name_and_pass($mysqli);
 loggin($mysqli);
 $mysqli->close();
