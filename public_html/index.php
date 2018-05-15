@@ -4,12 +4,18 @@
 	
     // $pages maps the page key to the page files names, this are the only
 	// allowed pages to load into the body (preventing attacks)
-	$pages = ['ini'=>'inicio', 'view'=>'viewer', 'log'=>'login'];
-	// Some variables to configure the pages directory and scripts file
+	$pages = ['ini'=>'inicio', 'view'=>'viewer', 'log'=>'login', 'upload'=>'upload_pdf'];
+	// Some variables to configure the pages directory, styles and scripts file
 	$pages_dir = '../pages/';
 	$pages_scripts_file_sufix = "_scripts";
+    $pages_styles_file_sufix = "_styles";
 	// We get the current page from the GET variables, or set a default one
 	$current_page_key = (isset($_GET['p'])?$_GET['p']:'ini');
+    // Look for the page and save $current_page_file if it is right
+	$current_page_file = "";
+	if(array_key_exists($current_page_key, $pages)) {
+		$current_page_file = $pages[$current_page_key];
+	}
 ?>
 <!doctype html>
 <html lang="en">
@@ -25,7 +31,14 @@
 	
 	<!-- Our CSS -->
 	<link rel="stylesheet" href="css/main-style.css">
-	
+<?php
+    if($current_page_file !== "") {
+        $styles_file = $pages_dir.$current_page_file.$pages_styles_file_sufix.'.php';
+		if(file_exists($styles_file)) {
+			include $styles_file;
+		}
+    }
+?>
 	<!-- For Bootstrap on IE 9 -->
 	<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -40,11 +53,8 @@
 	include '../modules/header.php';
 	echo "\n";
 ?>
-<?php	
-	// Look for the page and insert it if it is a legal page
-	$current_page_file = "";
-	if(array_key_exists($current_page_key, $pages)) {
-		$current_page_file = $pages[$current_page_key];
+<?php
+    if ($current_page_file !== "") {
 		include $pages_dir.$current_page_file.'.php';
 	} else {
 ?>
