@@ -21,13 +21,10 @@
             $result = $conn->query($sql);
   
             if ($result->num_rows > 0) {
-                echo "<form action=\"respuestas\">";
                 while($row = $result->fetch_assoc()) {
-                    echo "<input type=\"radio\" name=\"answer\" value=\"" . $row["answer_text"] . "\">" . $row["answer_text"] . "<br>";
+                    echo $row["answer_text"] . " - Votes - " . $row["votes"] . "<br>";
                 }
-                echo "</form>";
                 echo "<br>";
-                echo "<button type=\"button\" id=\"vote\">Votar!</button>";
             }
         }        
         else {
@@ -36,4 +33,4 @@
 
         $conn->close();
     ?>
-</main>
+</main> 
