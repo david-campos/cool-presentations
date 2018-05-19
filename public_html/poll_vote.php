@@ -1,0 +1,34 @@
+<?php
+    session_start();
+    die('Holaaa');        
+    require dirname(__FILE__) . '/../include/database_connection.php';
+    if ($mysqli->connect_error) {
+        http_response_code(500);
+        die('Connection error (' . $mysqli->connect_errno . ') '
+                . $mysqli->connect_error);
+    }
+
+    update_votation($mysqli);
+    $mysqli->close();
+
+    function update_votation($mysqli) {
+        die('Holaaa');        
+        if (!isset($_POST['id'])) {
+            http_response_code(400);
+            $mysqli->close();
+            die('Error: id not received.');
+        }
+        $stmt = $mysqli->prepare('UPDATE survey_answers SET votes=votes+1 WHERE answer_num=?');
+        $stmt->bind_param('s',$_POST['id']);
+        if (!$stmt->execute()) {
+            http_response_code(500);
+            $stmt->close();
+            $mysqli->close();
+            die('Error in the update statement ' . $stmt->errno);
+        }
+        else {
+            echo 'Row updated!';
+        }
+        $stmt->close();
+    }
+?>

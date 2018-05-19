@@ -1,40 +1,54 @@
-<main role="main" class="container-fluid" id='window'>
-    <?php
-        // Database connection data
-        require dirname(__FILE__) . '/../include/database_data.php';
+<?php
+    session_start();
+    require dirname(__FILE__) . '/../include/database_connection.php';
+    if ($mysqli->connect_error) {
+        http_response_code(500);
+        die('Connection error (' . $mysqli->connect_errno . ') '
+                . $mysqli->connect_error);
+    }
+    get_poll($mysqli);
+    $mysqli->close();
 
-        define("CURRENT_DATABASE_VERSION", 2);
-        $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_DATABASE);
-
-        if ($conn->connect_error) {
-            die('Database connection error');
+    function get_poll($mysqli) {
+        $stmt = $mysqli->prepare('SELECT question FROM surveys WHERE page=?');
+        $page = 3;
+        $stmt->bind_param('s',$page);
+        if (!$stmt->execute()) {
+            http_response_code(500);
+            $stmt->close();
+            $mysqli->close();
+            die('Error in the question query ' . $stmt->errno);
         }
+        echo "<main role=\"main\" class=\"container-fluid\" id='window'>";
         echo "<h2>¡La encuesta!</h2>";
-        $sql = "SELECT * FROM surveys WHERE page=1";
-        $result = $conn->query($sql);
+        $stmt->bind_result($question);
+        $stmt->fetch();        
+        echo "Pregunta: " . $question . "<br>";
+        $stmt->close();
 
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            echo "Pregunta: " . $row["question"] . "<br>";
-            
-            $sql = "SELECT * FROM survey_answers";
-            $result = $conn->query($sql);
-  
-            if ($result->num_rows > 0) {
-                echo "<form action=\"respuestas\">";
-                while($row = $result->fetch_assoc()) {
-                    echo "<input type=\"radio\" name=\"answer\" id=\"" . $row["answer_num"] .
-                         "\" value=\"" . $row["answer_text"] . "\">" . $row["answer_text"] . "<br>";
-                }
-                echo "</form>";
-                echo "<br>";
-                echo "<button type=\"button\" id=\"vote\">Votar!</button>";
-            }
-        }        
-        else {
-            die('No hay resultados :(');
+        $stmt = $mysqli->prepare('SELECT answer_num,answer_text FROM survey_answers WHERE survey_page=?');
+        $stmt->bind_param('s',$page);
+        if (!$stmt->execute()) {
+            http_response_code(500);
+            $stmt->close();
+            $mysqli->close();
+            die('Error in the answer query ' . $stmt->errno);
         }
 
-        $conn->close();
-    ?>
-</main>
+        echo "<form action=\"respuestas\">";
+        $answer = null;
+        $id_answer = null;
+        $stmt->bind_result($id_answer,$answer);
+        while($stmt->fetch()) {
+            echo "<input type=\"radio\" name=\"answer\" id=\"" . $id_answer .
+                    "\" value=\"" . $answer . "\">" . $answer . "<br>";
+        }
+        echo "</form>";
+        echo "<br>";
+        echo "<button type=\"button\" id=\"vote\">Votar!</button>";
+        echo "</main>";
+        http_response_code(200);
+        echo 'Todo ok';
+        $stmt->close();
+    }
+?>
