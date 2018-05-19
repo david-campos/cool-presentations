@@ -1,5 +1,4 @@
-<?php
-    session_start();       
+<?php      
     require dirname(__FILE__) . '/../include/database_connection.php';
 
     update_votation($mysqli);

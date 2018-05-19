@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require dirname(__FILE__) . '/../include/database_connection.php';
 
     get_poll($mysqli);
