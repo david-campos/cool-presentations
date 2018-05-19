@@ -11,6 +11,11 @@ if ($mysqli->connect_error) {
             . $mysqli->connect_error);
 }
 
+if (!$mysqli->set_charset("utf8")) {
+    printf("Error loading charset utf8: %s\n", $mysqli->error);
+    exit();
+}
+
 if ( ($result = $mysqli->query('SELECT version FROM table_version;')) &&
         ($row = $result->fetch_row())) {
     $result->close();

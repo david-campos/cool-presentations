@@ -1,7 +1,24 @@
 $(document).ready(()=>{
-	// If absolute URL from the remote server is provided, configure the CORS
-	// header on that server.
-	var url = '/pdfs/beamer-tutorial.pdf';
+    var pdfDoc = null, pageNum = 1;
+
+    /**
+     * Asynchronously downloads PDF.
+     */
+    function loadPdf() {
+        if(!PRES_CODE) {
+            alert('Error: no pres_code!');
+        }
+        var url = "presentation_access.php?presentation_code="+encodeURI(PRES_CODE);
+        // If absolute URL from the remote server is provided, configure the CORS
+        // header on that server.    
+        pdfjsLib.getDocument(url).then(function(pdfDoc_) {
+          pdfDoc = pdfDoc_;
+          let pageCount = document.getElementById('page_count');
+          if(pageCount) pageCount.textContent = pdfDoc.numPages;
+          // Initial/first page rendering
+          renderPage(pageNum);
+        });
+    }
 
     var startX,
     startY,
@@ -70,15 +87,13 @@ $(document).ready(()=>{
 	var pdfjsLib = window['pdfjs-dist/build/pdf'];
 
 	// The workerSrc property shall be specified.
-	pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
-
-	var pdfDoc = null,
-		pageNum = 1,
-		pageRendering = false,
-		pageNumPending = null,
-		scale = 10,
-		canvas = document.getElementById('the-canvas'),
-		ctx = canvas.getContext('2d');
+    pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+    var pageRendering = false,
+    pageNumPending = null,
+    scale = 10,
+    canvas = document.getElementById('the-canvas'),
+    ctx = canvas.getContext('2d'),
+    overSlides = $('#over-slides');
 
 	/**
 	 * Get page info from document, resize canvas accordingly, and render page.
@@ -98,6 +113,14 @@ $(document).ready(()=>{
 		  viewport: viewport
 		};
 		var renderTask = page.render(renderContext);
+        
+        overSlides.width($(canvas).width());
+        overSlides.height($(canvas).height());  
+        if(SURVEYS[num]) {
+            renderSurvey(SURVEYS[num]);
+        } else {
+            deleteSurvey();
+        }
 
 		// Wait for rendering to finish
 		renderTask.promise.then(function() {
@@ -113,6 +136,55 @@ $(document).ready(()=>{
 	  // Update page counters
 	  document.getElementById('page_num').textContent = num;
 	}
+    
+    // Keep the measures of overSlides always right
+    $( window ).resize(function() {
+        overSlides.width($(canvas).width());
+        overSlides.height($(canvas).height());
+    });
+    
+    var surveyTemplate = $('#survey-template').text();
+    var surveyAnswerTemplate = $('#survey-answer-template').text();
+    function renderSurvey(survey) {
+        let answersHtmlStr = "";
+        for(let ans of survey.answers) {
+            answersHtmlStr += surveyAnswerTemplate
+                .replace("%%VALUE%%", ans.id)
+                .replace("%%TEXT%%", ans.text);
+        }
+        let htmlStr = surveyTemplate
+            .replace("%%QUESTION%%", survey.question)
+            .replace("%%ANSWERS%%", answersHtmlStr);
+        let newElement = $(htmlStr);
+        // survey.open survey.multipleChoice
+        newElement.css("left", survey.pos.x + "%");
+        newElement.css("top", survey.pos.y + "%");
+        // survey answers interaction
+        let answerLis = newElement.find("li");
+        answerLis.click((event)=>{
+            answerLis.removeClass("active");
+            $(event.target).addClass("active");
+        });
+        // survey vote button
+        newElement.find('button').click(()=>{
+            $.post("poll_vote.php", 
+                   {
+                       "presentation_code": PRES.id_code,
+                       "survey_page": survey.page,
+                       "answer_id": newElement.find('li.active').attr("data-value")
+                   },
+                   (data)=>{newElement.text(data)},
+                   'text')
+                .fail((data)=>{alert("Error: " + data.responseText);});
+        });
+        // Put to overslides
+        overSlides.empty();
+        overSlides.append(newElement);
+    }
+    
+    function deleteSurvey() {
+        overSlides.html("");
+    }
 
 	/**
 	 * If another page rendering in progress, waits until the rendering is
@@ -202,15 +274,6 @@ $(document).ready(()=>{
         }
         event.preventDefault();
     },true);
-
-	/**
-	 * Asynchronously downloads PDF.
-	 */
-	pdfjsLib.getDocument(url).then(function(pdfDoc_) {
-	  pdfDoc = pdfDoc_;
-	  document.getElementById('page_count').textContent = pdfDoc.numPages;
-
-	  // Initial/first page rendering
-	  renderPage(pageNum);
-	});
+    
+    loadPdf();
 });
