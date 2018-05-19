@@ -1,0 +1,23 @@
+#poll ul{
+    list-style: none;
+    padding-left: 0;
+}
+
+.poll_option{
+    margin-bottom: 5px;
+}
+
+.poll_optionname{
+    width: 160px;
+    padding: 5px;
+    display: inline-block;
+    color: white;
+}
+
+.poll_votes{
+    width: 80px;
+    padding: 5px;
+    display: inline-block;
+    background-color: gainsboro;
+    text-align: center;
+}
