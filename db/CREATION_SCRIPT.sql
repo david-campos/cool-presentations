@@ -3,7 +3,7 @@
 --	corresponding to the database design in the version
 -- 	specified bellow.
 --  
--- 	Author: David Campos Rodríguez <david.campos.r96@gmail.com>
+-- 	Author: David Campos Rodrï¿½guez <david.campos.r96@gmail.com>
 
 /*******************************************************************************
  * DATABASE VERSION = 2
@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `presentations` (
 	`location_lat` DECIMAL(8,6), -- NULLABLE
 	`location_lon` DECIMAL(9,6), -- NULLABLE
 	`access_code` CHAR(128) DEFAULT NULL, -- NULLABLE
+	`downloadable` TINYINT(1) DEFAULT 0 NOT NULL,
 	
 	`user_id` INT UNSIGNED NOT NULL,
 	

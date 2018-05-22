@@ -4,7 +4,7 @@
 	
     // $pages maps the page key to the page files names, this are the only
 	// allowed pages to load into the body (preventing attacks)
-	$pages = ['ini'=>'inicio', 'view'=>'viewer', 'log'=>'login', 'upload'=>'upload_pdf'];
+	$pages = ['ini'=>'inicio', 'view'=>'viewer', 'log'=>'login', 'upload'=>'upload_pdf', 'download'=>'download_pdf'];
 	// Some variables to configure the pages directory, styles and scripts file
 	$pages_dir = '../pages/';
 	$pages_scripts_file_sufix = "_scripts";
