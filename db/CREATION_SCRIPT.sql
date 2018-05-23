@@ -3,10 +3,10 @@
 --	corresponding to the database design in the version
 -- 	specified bellow.
 --  
--- 	Author: David Campos Rodr�guez <david.campos.r96@gmail.com>
+-- 	Author: David Campos Rodríguez <david.campos.r96@gmail.com>
 
 /*******************************************************************************
- * DATABASE VERSION = 2
+ * DATABASE VERSION = 3
  * 
  * NOT IMPLEMENTED:
  * 	Multiplicity of the relation "answers" on the side of SurveyAnswers (2..*)
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `table_version` (
     `version` INT UNSIGNED NOT NULL PRIMARY KEY
 );
 -- Insert version
-INSERT INTO `table_version`(`version`) VALUES (2);
+INSERT INTO `table_version`(`version`) VALUES (3);
 
 -- TABLES CREATION
 -- Users table
