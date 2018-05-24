@@ -21,6 +21,7 @@
 <script type="text/html" id="debug-template">
   <li class="list-group-item text-%%color%%"><strong>%%date%%</strong>: %%message%%</li>
 </script>
+<script src="js/sha.js"></script>
 <script src="js/upload_pdf.js"></script>
 <script src="js/jquery.dm-uploader.js"></script>
 <script src="js/demo-config.js"></script>

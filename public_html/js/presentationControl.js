@@ -1,3 +1,6 @@
+
+var pwd_ok = false;
+
 $(document).ready(()=>{
     var pdfDoc = null, pageNum = 1;
 
@@ -239,41 +242,48 @@ $(document).ready(()=>{
     }, true);
 
     window.addEventListener("wheel", function(event) {
-        if (event.defaultPrevented) {
-            return;
-        }
+        if (pwd_ok) 
+        {
+            if (event.defaultPrevented) {
+                return;
+            }
 
-        if (event.deltaY > 0) {
-            onNextPage()
-        }
-        else {
-            onPrevPage()
-        }
+            if (event.deltaY > 0) {
+                onNextPage()
+            }
+            else {
+                onPrevPage()
+            }
 
-        event.preventDefault();
+            event.preventDefault();
+        }
     }, true);
 
     window.addEventListener("keydown", function(event) {
-        if (event.defaultPrevented){
-            return; // Do nothing if the event was already processed
-        }
+        if (pwd_ok)
+        {
+            if (event.defaultPrevented){
+                return; // Do nothing if the event was already processed
+            }
 
-        switch(event.key) {
-            case "ArrowLeft":
-                onPrevPage()
-                break;
-            case "ArrowRight":
-                onNextPage()
-                break;
-            case "ArrowUp":
-                onPrevPage()
-                break;
-            case "ArrowDown":
-                onNextPage()
-                break;
+            switch(event.key) {
+                case "ArrowLeft":
+                    onPrevPage()
+                    break;
+                case "ArrowRight":
+                    onNextPage()
+                    break;
+                case "ArrowUp":
+                    onPrevPage()
+                    break;
+                case "ArrowDown":
+                    onNextPage()
+                    break;
+            }
+            event.preventDefault();
         }
-        event.preventDefault();
     },true);
+    
     
     loadPdf();
 });

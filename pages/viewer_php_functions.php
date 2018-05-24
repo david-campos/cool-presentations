@@ -3,6 +3,7 @@ require_once dirname(__FILE__) . '/../include/database_connection.php';
 
 class NoPresentationCodeException extends Exception {}
 class PresentationNotFoundException extends Exception {}
+class PresentationPasswordError extends Exception {}
 
 /**
  * Get's the presentation info for the requested presentation (by GET params)
@@ -16,20 +17,21 @@ function get_presentation_info() {
     
     $presentationCode = $_GET['id'];
     $stmt = $mysqli->prepare(
-        'SELECT name,start_timestamp,end_timestamp,location_lat,location_lon,user_id
+        'SELECT name,start_timestamp,end_timestamp,access_code,location_lat,location_lon,user_id
             FROM presentations WHERE id_code=? LIMIT 1');
     try {
         $stmt->bind_param('s',$presentationCode);
         if (!$stmt->execute()) {
             throw new Exception('Error in the question query ' . $stmt->errno);
         }
-        $stmt->bind_result($name,$start,$end,$lat,$lon,$userId);
+        $stmt->bind_result($name,$start,$end,$access_code,$lat,$lon,$userId);
         if($stmt->fetch()) {
             $presentation = [
                 'id_code' => $presentationCode,
                 'name' => $name,
                 'start_timestamp' => $start,
                 'end_timestamp' => $end,
+                'access_code' => $access_code,
                 'location' => ['lat'=>$lat, 'lon'=>$lon],
                 'author' => $userId
             ];

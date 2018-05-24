@@ -25,6 +25,35 @@
           </div>
         </div>
       </div><!-- /file list -->
+	 
+	<form id="primaryButton"  action="upload2.php" onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
+	<table>
+		<tr>
+			<td style="padding-right:30px">
+				Nombre presentación:<br>
+			  <input type="text" name="present_name" value="Nombre_presentación"><br>
+			</td>
+			<td>
+				Código acceso:<br>
+			  <input type="text" name="code_access" value="Access_code"><br>
+			</td>
+		<tr>
+			<td>
+				Tiempo ini:<br>
+			  <input type="date" name="diaini" value="Time start" ><br>
+			  <input type="time" name="horaini" value="Time start" ><br>
+			</td>
+			<td>
+				Tiempo fin:<br>
+			  <input type="date" name="diafin" value="Time stop"><br>
+			  <input type="time" name="horafin" value="Time stop"><br>
+			</td>
+		</tr>
+			  	  
+	 </table>
+	  <input type="submit" id='submitt' style='visibility:hidden'>
+	</form>
+	
 	  
 	  <div class="mt-2">
     	<a href="#" class="btn btn-primary" id="btnApiStart">
@@ -38,7 +67,7 @@
     	</a>
       </div>
 
-
+	
       <div class="row">
         <div class="col-12">
            <div class="card h-100">

@@ -13,13 +13,7 @@ header('Content-type:application/json;charset=utf-8');
 
 require dirname(__FILE__) . '/../include/database_connection.php';
 
-$fecha1 = new DateTime();
-$fecha1 = $fecha1->getTimestamp();
-$id_code=$_FILES['file']['name'];
-$latitud=0000;
-$longitud=0000;
-$acces_code = $_FILES['file']['name'];
-$userid=25;
+
 
 
 try {
@@ -52,9 +46,7 @@ try {
     }
 
     // All good, send the response
-	$fecha2 = new DateTime();
-	$fecha2 = $fecha2->getTimestamp();
-
+	
 	//insert_upload($id_code,$fecha1,$fecha2,$latitud,$longitud,$acces_code,$userid,$mysqli);
     echo json_encode([
         'status' => 'ok',
@@ -72,17 +64,7 @@ try {
 }
 
 
-function insert_upload($id_code,$timeini,$timefin,$latitud,$longitud,$acces_code,$userid,$mysqli){
-	$stmt = $mysqli->prepare('INSERT INTO borrar VALUES (?, ?, ?, ?, ?, ?, ?)');
-	$latitud=2.45;
-	$longitud=3.0;
-	$userid=25;
-    $stmt->bind_param('sssddsi', $id_code,$timeini,$timefin,$latitud,$longitud,$acces_code,$userid);
-    if(!$stmt->execute()) {
-        $stmt->close();
-        $mysqli->close();
-        throw new RuntimeException('Error in the query '.$stmt->errno);
-    }
-    $stmt->close();
-	$mysqli->close();
-}
+
+
+
+
