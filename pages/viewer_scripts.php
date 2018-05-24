@@ -10,6 +10,7 @@
         }
         
     ?>
+    <script src="js/sha.js"></script>
     <script src="js/presentationControl.js"></script>
     <script language="JavaScript" type="text/javascript">
         const PRES = <?php echo $jsonPres; ?>;

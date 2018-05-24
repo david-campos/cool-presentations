@@ -1,23 +1,35 @@
 
 $(document).ready(()=>{
+    var pageRendering = false,
+    pageNumPending = null,
+    scale = 10,
+    canvas = document.getElementById('the-canvas'),
+    ctx = canvas.getContext('2d'),
+    overSlides = $('#over-slides');
+    
     var pwd_ok = false;
     var pdfDoc = null, pageNum = 1;
     var url = "";
     /**
      * Asynchronously downloads PDF.
      */  
-    function loadPdf() {
+    function loadPdf(access_code) {
         if(!PRES_CODE) {
             alert('Error: no pres_code!');
         }
-        console.log(url)
-        url = "presentation_access.php?presentation_code="+encodeURI(PRES_CODE)+"&access_code=false";
-        if (PRES.access_code != null) {
-            $('#passwordModal').modal('show');        
+        url = "presentation_access.php?presentation_code="+encodeURI(PRES_CODE);
+        if (PRES.access_code && !access_code) {
+            $('#passwordModal').modal('show');
+            setTimeout(()=>{$('input[name="pwd_field"]').focus()},500);
+            return;
+        }
+        if(access_code) {
+            url += "&access_code="+encodeURI(access_code);
         }
         // If absolute URL from the remote server is provided, configure the CORS
         // header on that server.    
-        pdfjsLib.getDocument(url).then(function(pdfDoc_) {
+        pdfjsLib.getDocument(url).then(
+        (pdfDoc_) => {
           pdfDoc = pdfDoc_;
           pwd_ok = true;
           $('#passwordModal').modal('hide');
@@ -25,24 +37,27 @@ $(document).ready(()=>{
           if(pageCount) pageCount.textContent = pdfDoc.numPages;
           // Initial/first page rendering
           renderPage(pageNum);
-        }, function() {
-            console.log('Pass incorrecta');
+        },
+        (data, moreData) => {
+            $('#passwordModal .loader').hide();
+            $('#pass_dialog_fail').show();
+            $('#pwd_form').show();
+            console.log(data, moreData);
         });
     }
 
     var startX,
     startY,
     dist,
-    threshold = $( window ).width() / 3.0, //required min distance traveled to be considered swipe
-    allowedTime = 300, // maximum time allowed to travel that distance
+    threshold = $( canvas ).width() / 3.0, //required min distance traveled to be considered swipe
+    allowedTime = 500, // maximum time allowed to travel that distance
     elapsedTime,
     startTime;
     
     // Object to do the swap on
-    var doSwapOn = window;
+    var doSwapOn = overSlides[0];
     
     doSwapOn.addEventListener('touchstart', function(e){
-        console.log("touchstart");
         var touchobj = e.changedTouches[0]
         dist = 0
         startX = touchobj.pageX
@@ -61,7 +76,7 @@ $(document).ready(()=>{
         elapsedTime = new Date().getTime() - startTime // get time elapsed
         // check that elapsed time is within specified, horizontal dist traveled >= threshold, and vertical dist traveled <= 100
         var swiperightBol = (elapsedTime <= allowedTime && Math.abs(dist) >= threshold && Math.abs(touchobj.pageY - startY) <= 100)
-        console.log("swiperightBol ", swiperightBol, "dist", dist, "elapsedTime", elapsedTime)
+        //console.log("swiperightBol ", swiperightBol, "dist", dist, "elapsedTime", elapsedTime)
         var dir_str = "none";
         var dir_int = 0;
         if(swiperightBol){
@@ -98,12 +113,6 @@ $(document).ready(()=>{
 
 	// The workerSrc property shall be specified.
     pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
-    var pageRendering = false,
-    pageNumPending = null,
-    scale = 10,
-    canvas = document.getElementById('the-canvas'),
-    ctx = canvas.getContext('2d'),
-    overSlides = $('#over-slides');
 
 	/**
 	 * Get page info from document, resize canvas accordingly, and render page.
@@ -230,22 +239,26 @@ $(document).ready(()=>{
 	  pageNum++;
 	  queueRenderPage(pageNum);
     }
-
+    
+    $('#pwd_form').submit((event)=>{event.preventDefault();$('button[name="send_pwd"]').click();});
+    
     $('button[name="send_pwd"]').click(function() {
         pwd = $('input[name="pwd_field"]').val();
-        console.log(pwd);
-        url = "presentation_access.php?presentation_code="+encodeURI(PRES_CODE)+"&access_code="+pwd;
-        loadPdf();
-    });
-
-    $('button[name="back"]').click(function() {        
-        $('#passwordModal').modal('hide');
+        $('input[name="pwd_field"]').val(''); // delete pass from dom!
+        $('#pwd_form').hide();
+        $('#passwordModal .loader').show();
+        $('#pass_dialog_fail').hide();
+        // hash pass even before sending (sha.js)
+        var shaObj = new jsSHA("SHA-512", "TEXT");
+        shaObj.update(pwd);
+        pwd = shaObj.getHash("HEX");
+        loadPdf(pwd);
     });
     
     document.getElementById('next').addEventListener('click', onNextPage);
     
     window.addEventListener("swap", function(event) {
-        console.log("swap");
+        //console.log("swap");
         if (event.defaultPrevented) {
             return;
         }
@@ -277,31 +290,31 @@ $(document).ready(()=>{
         }
     }, true);
 
-    /*
+    
     window.addEventListener("keydown", function(event) {
-        if (pwd_ok)
-        {
-            if (event.defaultPrevented){
-                return; // Do nothing if the event was already processed
-            }
-
-            switch(event.key) {
-                case "ArrowLeft":
-                    onPrevPage()
-                    break;
-                case "ArrowRight":
-                    onNextPage()
-                    break;
-                case "ArrowUp":
-                    onPrevPage()
-                    break;
-                case "ArrowDown":
-                    onNextPage()
-                    break;
-            }
-            event.preventDefault();
+        if (event.defaultPrevented){
+            return; // Do nothing if the event was already processed
         }
-    },true);*/
+
+        switch(event.key) {
+            case "ArrowLeft":
+                onPrevPage()
+                event.preventDefault()
+                break;
+            case "ArrowRight":
+                onNextPage()
+                event.preventDefault()
+                break;
+            case "ArrowUp":
+                onPrevPage()
+                event.preventDefault()
+                break;
+            case "ArrowDown":
+                onNextPage()
+                event.preventDefault()
+                break;
+        }
+    },true);
     
     
     loadPdf();

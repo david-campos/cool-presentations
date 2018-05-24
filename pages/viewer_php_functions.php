@@ -17,21 +17,25 @@ function get_presentation_info() {
     
     $presentationCode = $_GET['id'];
     $stmt = $mysqli->prepare(
-        'SELECT name,start_timestamp,end_timestamp,access_code,location_lat,location_lon,user_id
+        'SELECT name,start_timestamp,end_timestamp,location_lat,location_lon,user_id,
+            IF(access_code IS NULL, 0, 1) AS access_code_required
             FROM presentations WHERE id_code=? LIMIT 1');
+    if(!$stmt) {
+        throw new Exception('Error in the question query preparation ' . $mysqli->error, $mysqli->errno);
+    }
     try {
         $stmt->bind_param('s',$presentationCode);
         if (!$stmt->execute()) {
-            throw new Exception('Error in the question query ' . $stmt->errno);
+            throw new Exception('Error in the question query ' . $stmt->error, $stmt->errno);
         }
-        $stmt->bind_result($name,$start,$end,$access_code,$lat,$lon,$userId);
+        $stmt->bind_result($name,$start,$end,$lat,$lon,$userId,$req_code);
         if($stmt->fetch()) {
             $presentation = [
                 'id_code' => $presentationCode,
                 'name' => $name,
                 'start_timestamp' => $start,
                 'end_timestamp' => $end,
-                'access_code' => $access_code,
+                'access_code' => $req_code?true:false,
                 'location' => ['lat'=>$lat, 'lon'=>$lon],
                 'author' => $userId
             ];
@@ -54,6 +58,9 @@ function get_polls_for_presentation($presentationCode) {
     $stmt = $mysqli->prepare(
         'SELECT page,question,`positionX`,`positionY`,open,multiple_choice
             FROM surveys WHERE presentation_code=?');
+    if(!$stmt) {
+        throw new Exception('Error in the question query preparation ' . $mysqli->error, $mysqli->errno);
+    }
     try {
         $stmt->bind_param('s',$presentationCode);
         if (!$stmt->execute()) {
