@@ -3,22 +3,10 @@
     $error = "";
     try {
         $presentation = get_presentation_info();
-        if ($presentation['access_code'] == NULL)
+        if ($presentation['access_code'] != NULL)
         {
             ?>
-                <script type="text/javascript">
-                    function send_pwd() {
-                        var pass = $("input[name='pwd_field']").val()
-                        alert(pass)
-                    }
-
-                    function return_pwd() {
-                        location.replace(document.referrer)
-                    }
-                </script>
-
-                <body onLoad="$('#passwordModal').modal('show');">
-                <div id="passwordModal" class="modal fade" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" data-show="true">
+                <div id="passwordModal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" data-show="true">
                     <div class="modal-dialog" role="document">
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -26,29 +14,24 @@
                             <h4 class="modal-title">Password</h4>
                         </div>
                         <div class="modal-body">
-                        <form class="form-horizontal" action="" method="post">             
+                        <form class="form-horizontal">             
                             <div class="form-group">
                             </div>
                                 <div class="form-group">
                                     <div class="col-sm-10">
-                                    <input type="password" class="form-control" name="pwd_field" placeholder="Enter password">
+                                    <input type="password" class="form-control" name="pwd_field" >
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-default" name="send_pwd">Enviar</button> 
-                            <button type="button" class="btn btn-default" onClick=return_pwd()>Cerrar</button>
+                            <button type="button" class="btn btn-default" name="send_pwd">Enviar</button> 
+                            <button type="button" class="btn btn-default" name="back">Cerrar</button>
                         </div>
                         </div>
                         </form>
                     </div>
                 </div>
-                </body>
             <?php
-        }   
-        if (isset($_POST['send_pwd'])) {
-            $input = $_POST['pwd_field'];
-            echo "Pass: " . $input;
         }
         $polls = get_polls_for_presentation($presentation['id_code']);
     } catch (NoPresentationCodeException $npce) {

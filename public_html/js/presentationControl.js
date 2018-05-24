@@ -1,25 +1,32 @@
 
-var pwd_ok = false;
-
 $(document).ready(()=>{
+    var pwd_ok = false;
     var pdfDoc = null, pageNum = 1;
-
+    var url = "";
     /**
      * Asynchronously downloads PDF.
-     */
+     */  
     function loadPdf() {
         if(!PRES_CODE) {
             alert('Error: no pres_code!');
         }
-        var url = "presentation_access.php?presentation_code="+encodeURI(PRES_CODE);
+        console.log(url)
+        url = "presentation_access.php?presentation_code="+encodeURI(PRES_CODE)+"&access_code=false";
+        if (PRES.access_code != null) {
+            $('#passwordModal').modal('show');        
+        }
         // If absolute URL from the remote server is provided, configure the CORS
         // header on that server.    
         pdfjsLib.getDocument(url).then(function(pdfDoc_) {
           pdfDoc = pdfDoc_;
+          pwd_ok = true;
+          $('#passwordModal').modal('hide');
           let pageCount = document.getElementById('page_count');
           if(pageCount) pageCount.textContent = pdfDoc.numPages;
           // Initial/first page rendering
           renderPage(pageNum);
+        }, function() {
+            console.log('Pass incorrecta');
         });
     }
 
@@ -223,6 +230,17 @@ $(document).ready(()=>{
 	  pageNum++;
 	  queueRenderPage(pageNum);
     }
+
+    $('button[name="send_pwd"]').click(function() {
+        pwd = $('input[name="pwd_field"]').val();
+        console.log(pwd);
+        url = "presentation_access.php?presentation_code="+encodeURI(PRES_CODE)+"&access_code="+pwd;
+        loadPdf();
+    });
+
+    $('button[name="back"]').click(function() {        
+        $('#passwordModal').modal('hide');
+    });
     
     document.getElementById('next').addEventListener('click', onNextPage);
     
@@ -259,6 +277,7 @@ $(document).ready(()=>{
         }
     }, true);
 
+    /*
     window.addEventListener("keydown", function(event) {
         if (pwd_ok)
         {
@@ -282,7 +301,7 @@ $(document).ready(()=>{
             }
             event.preventDefault();
         }
-    },true);
+    },true);*/
     
     
     loadPdf();

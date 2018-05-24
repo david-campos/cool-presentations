@@ -8,7 +8,7 @@ require dirname(__FILE__).'/../include/database_connection.php';
 if(($result=$mysqli->query(
     'SELECT id_code, name, start_timestamp, end_timestamp '.
     'FROM presentations '.
-    'WHERE access_code IS NULL '.
+    //'WHERE access_code IS NULL '.
     'ORDER BY start_timestamp LIMIT 9')) &&
     $result->num_rows > 0):
   $presentations = [];
