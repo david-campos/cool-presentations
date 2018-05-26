@@ -26,3 +26,5 @@
 <script src="js/jquery.dm-uploader.js"></script>
 <script src="js/demo-config.js"></script>
 <script src="js/demo-ui.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUfEs6oBqM0fonFb1f2g2b_2QNcXr7Smc"></script>
+<script type="text/javascript" src="js/map.js"></script>

@@ -2,7 +2,7 @@
 // Database connection data
 require dirname(__FILE__) . '/database_data.php';
 
-define("CURRENT_DATABASE_VERSION", 2);
+define("CURRENT_DATABASE_VERSION", 3);
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_DATABASE);
 
 if ($mysqli->connect_error) {
