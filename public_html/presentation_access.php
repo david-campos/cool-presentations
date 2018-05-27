@@ -40,9 +40,9 @@
             }
             
             $access_code = $_GET['access_code'];
-            if(preg_match('/^[0-9a-fA-F]{64}$/', $code)!==1) {
+            if(preg_match('/^[0-9a-fA-F]{128}$/', $access_code)!==1) {
                 http_response_code(400);
-                die('Invalid code. '. strlen($code));
+                die('Invalid code. '. strlen($access_code));
             }
             
             if ($access_code !== $access_code_db) {                
