@@ -5,8 +5,8 @@
 			<span><strong>Presentations</strong> is a project by:</span>
 			<ul>
 				<li><a target="_blank" href="linkedin.com/in/david-campos-rodriguez/">David Campos</a></li>
-				<li><a target="_blank" href="#empty">Rubén Apellido</a></li>
-				<li><a target="_blank" href="#empty">Steve Apellido</a></li>
+				<li><a target="_blank" href="#empty">Rubén Bagán</a></li>
+				<li><a target="_blank" href="#empty">Esteve Oria</a></li>
 			</ul>
 		</div>
 		<div class="col-sm-12 col-md-6 col-lg-4 text-muted">

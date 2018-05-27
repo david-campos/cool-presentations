@@ -3,10 +3,12 @@
  
  $('#btnApiStart').on('click', function(evt){
     evt.preventDefault();
-
-    $('#drag-and-drop-zone').dmUploader('start');
-	sleep(1000);
+	
 	document.getElementById('submitt').click();
+	sleep(1000);
+    $('#drag-and-drop-zone').dmUploader('start');
+	
+	
 	
 	
   });

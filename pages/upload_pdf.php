@@ -26,6 +26,49 @@
         </div>
       </div><!-- /file list -->
 	 
+	 
+	 
+	<form class="form-inline" id="primaryButton"  action="upload2.php" onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
+	  <div class="form-group">
+		<label >Presentation name:</label>
+		<input type="text" class="form-control" name="present_name" value="Nombre_presentación">
+	  </div>
+	  <div class="form-group">
+		<label>Access code:</label>
+		<input class="form-control" type="text" name="code_access" value="Access_code">
+	  </div>
+	  <div class="checkbox">
+		<label><input name='downloable' type="checkbox"> Downloable?</label>
+	  </div>
+	  <div class="form-group">
+		<label>Init time:</label>
+		<input type="date" name="diaini" value="Time start" >
+		<input type="time" name="horaini" value="Time start" >
+	  </div>
+	  <div class="form-group">
+		<label>End time:</label>
+		<input type="date" name="diafin" value="Time stop">
+		<input type="time" name="horafin" value="Time stop">
+	  </div>
+	  <div class="form-group">
+		<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
+		  <div id="demo" class="collapse">
+			 <h2>Select a location!</h2>
+					<p>Click on a location on the map to select it. Drag the marker to change location.</p>
+					
+					<!--map div-->
+					<div id="map"></div>
+					
+					<!--our form-->
+					<!--<h2>Chosen Location</h2>-->
+					<input type="text" id="lat" name="lat" readonly="yes"><br>
+					<input type="text" id="lng" name="lng"readonly="yes">
+					
+		  </div>
+	  </div>
+	  <button type="submit" class="btn btn-default" style="visibility:hidden;">Submit</button>
+	</form> 
+	<!--
 	<form id="primaryButton"  action="upload2.php" onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
 	<table>
 		<tr>
@@ -66,11 +109,11 @@
 					 <h2>Select a location!</h2>
 					<p>Click on a location on the map to select it. Drag the marker to change location.</p>
 					
-					<!--map div-->
+					
 					<div id="map"></div>
 					
-					<!--our form-->
-					<!--<h2>Chosen Location</h2>-->
+					
+	
 					<input type="text" id="lat" name="lat" readonly="yes"><br>
 					<input type="text" id="lng" name="lng"readonly="yes">
 					
@@ -81,6 +124,8 @@
 	 </table>
 	  <input type="submit" id='submitt' style='visibility:hidden'>
 	</form>
+	-->
+	
 	
 	  
 	  <div class="mt-2">

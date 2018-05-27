@@ -18,14 +18,7 @@ require dirname(__FILE__) . '/../include/database_connection.php';
 
 
 
-$randomPseudoBytes = bin2hex(openssl_random_pseudo_bytes(32,  $strong));
-
-if( !$strong ) {
-	http_response_code(500);
-	$mysqli->close();
-	die('openssl_random_pseudo_bytes not strong enough.');
-}
-$id_code = hash('sha512', uniqid(rand(), true).$randomPseudoBytes);
+$id_code = hash('sha256', uniqid(rand()));
 
 
 
@@ -43,17 +36,18 @@ $hora2=$_GET['horafin'];
 
 $lat=$_GET['lat'];
 $lng=$_GET['lng'];
+
 $access_code = $_GET['code_access'];
-
-
 $access_code = hash('sha512', $access_code); 
 $access_code=strtolower($access_code);
+
+
 $user_id=$_SESSION['user_id'];
 
 $start = $fecha1." ".$hora1.":00";
 $fin= $fecha2." ".$hora2.":00";
 
-//$id_code= $_SESSION['filepath'];
+$_SESSION['filepath']=$id_code;
 
 
 

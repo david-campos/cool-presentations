@@ -36,11 +36,10 @@ try {
         default:
             throw new RuntimeException('Unknown errors.');
     }
-	$aux = uniqid();
-	$aux1='.pdf';
-    $filepath = sprintf('../uploaded_pdfs/%s%s', $aux,$aux1);
+	$aux = $_SESSION['filepath'].'.pdf';
+    $filepath = sprintf('../uploaded_pdfs/%s', $aux);
 
-	$_SESSION['filepath'] = $aux;
+	
 	
     if (!move_uploaded_file(
         $_FILES['file']['tmp_name'],
