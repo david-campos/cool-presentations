@@ -50,8 +50,40 @@ $fin= $fecha2." ".$hora2.":00";
 $_SESSION['filepath']=$id_code;
 
 
+//--------------SURVEYS-----------------------//
+$question = $_GET['question'];
+$page = $_GET['page'];
+$open=0;
+if (isset($_GET['open'])) {
+	$open=1;
+}
+$multiplechoice=0;
+if (isset($_GET['multiplechoice'])) {
+	$multiplechoice=1;
+}
+$xcor = $_GET['xcor'];
+$ycor = $_GET['ycor'];
 
-prueba($mysqli,$id_code,$name,$start,$fin,$lat,$lng,$access_code,$downloable,$user_id);
+
+
+function insert_survey($mysqli,$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code){
+	$stmt = $mysqli->prepare('INSERT INTO surveys VALUES (?,?,?,?,?,?,?)');
+	$stmt->bind_param('isddiis',$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code);
+	if(!$stmt->execute()) {
+		http_response_code(500);
+        $stmt->close();
+        $mysqli->close();
+        throw new RuntimeException('Error in the query '.$stmt->errno);
+    }
+    $stmt->close();
+	$mysqli->close();
+}
+
+
+
+
+//-------------FI SURVEYS-------------------//
+
 
 
 function prueba($mysqli,$id_code,$name,$start,$fin,$lat,$lon,$access_code,$downloable,$user_id){
@@ -63,7 +95,12 @@ function prueba($mysqli,$id_code,$name,$start,$fin,$lat,$lon,$access_code,$downl
         $mysqli->close();
         throw new RuntimeException('Error in the query '.$stmt->errno);
     }
-    $stmt->close();
-	$mysqli->close();
+   
 }
 
+
+prueba($mysqli,$id_code,$name,$start,$fin,$lat,$lng,$access_code,$downloable,$user_id);
+
+insert_survey($mysqli,$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code);
+//echo $id_code.$name.$start.$fin.$lat.$lng.$access_code.$downloable.$user_id;
+//echo $page.$question.$xcor.$ycor.$open.$multiplechoice.$id_code;
