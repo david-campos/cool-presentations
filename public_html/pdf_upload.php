@@ -13,6 +13,7 @@ header('Content-type:application/json;charset=utf-8');
 
 require dirname(__FILE__) . '/../include/database_connection.php';
 
+if(!session_id()) session_start();
 
 
 
@@ -35,9 +36,11 @@ try {
         default:
             throw new RuntimeException('Unknown errors.');
     }
-	
-    $filepath = sprintf('../uploaded_pdfs/%s_%s', uniqid(), $_FILES['file']['name']);
+	$aux = $_SESSION['filepath'].'.pdf';
+    $filepath = sprintf('../uploaded_pdfs/%s', $aux);
 
+	
+	
     if (!move_uploaded_file(
         $_FILES['file']['tmp_name'],
         $filepath
