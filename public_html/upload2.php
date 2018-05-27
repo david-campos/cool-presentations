@@ -8,7 +8,8 @@
   Based on the examples provided on:
   - http://php.net/manual/en/features.file-upload.php
 */
-session_start();
+if(!session_id()) session_start();
+
 
 header('Content-type:application/json;charset=utf-8');
 
@@ -25,7 +26,8 @@ if( !$strong ) {
 	die('openssl_random_pseudo_bytes not strong enough.');
 }
 $id_code = hash('sha512', uniqid(rand(), true).$randomPseudoBytes);
-$id_code=substr($id_code,-128,128);
+
+
 
 $name=$_GET['present_name'];
 $downloable=0;
@@ -43,10 +45,16 @@ $lat=$_GET['lat'];
 $lng=$_GET['lng'];
 $access_code = $_GET['code_access'];
 
+
+$access_code = hash('sha512', $access_code); 
+$access_code=strtolower($access_code);
 $user_id=$_SESSION['user_id'];
 
 $start = $fecha1." ".$hora1.":00";
 $fin= $fecha2." ".$hora2.":00";
+
+//$id_code= $_SESSION['filepath'];
+
 
 
 prueba($mysqli,$id_code,$name,$start,$fin,$lat,$lng,$access_code,$downloable,$user_id);
