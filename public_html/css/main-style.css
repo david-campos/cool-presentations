@@ -36,13 +36,31 @@ footer ul {
   border-radius: 1em;
   background-color: white;
   border: 3px solid #4c4;
-  padding: 25px;
+  padding: 2vw 5vw;
   display: inline-block;
+}
+
+.survey li {
+  padding: 1vw 3vw;
+}
+
+.survey, .survey .progress, .survey .progress-bar {
+    font-size: 2vw;
+}
+.survey .progress {
+    height: 2vw;
+}
+
+.survey h4 {
+    font-size: 3.6vw;
+    padding-left: 3vw;
+    margin-bottom: 3vw;
 }
 
 .survey ul {
   margin-bottom: 1em;
   width: 100%;
+  padding: 1vw 3vw;
 }
 
 .survey li {
@@ -86,6 +104,18 @@ span.bigCheckboxLabel {
     100% { transform: rotate(360deg); }
 }
 
+.container-fluid {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+@media (min-width: 360px) {
+    .container-fluid {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
+
 /* Medium size */
 @media (min-width: 768px) {
   body {
@@ -98,7 +128,34 @@ span.bigCheckboxLabel {
 }
 
 /* Large size */
-@media (min-width: 992px) {
+@media (min-width: 992px) {  
+    .survey .progress {
+        height: 1vw;
+    }
+    
+    .survey, .survey .progress, .survey .progress-bar {
+      font-size: 1vw;
+    }
+    
+    .survey {
+        padding: 1vw 2vw;
+    }
+
+    .survey h4 {
+        font-size: 1.8vw;
+    }
+    .survey li {
+        padding: 0.5vw 1.5vw;
+    }
+    .survey h4 {
+        font-size: 1.8vw;
+        margin-bottom: 1.5vw;
+    }
+    
+    .survey ul {
+      padding: 0.5vw 1.5vw;
+    }
+    
   body {
     margin-bottom: 112px; /* Margin bottom by footer height */
   }
