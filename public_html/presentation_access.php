@@ -7,12 +7,12 @@
     }
     
     $code = $_GET['presentation_code'];
+    echo $code;
     
     if(preg_match('/^[0-9a-fA-F]{64}$/', $code)!==1) {
         http_response_code(400);
         die('Invalid code.');
     }
-
     
     $stmt = $mysqli->prepare('SELECT access_code FROM presentations WHERE id_code=? LIMIT 1');        
     $stmt->bind_param('s', $code);

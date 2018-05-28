@@ -17,7 +17,7 @@ function get_presentation_info() {
     
     $presentationCode = $_GET['id'];
     $stmt = $mysqli->prepare(
-        'SELECT name,start_timestamp,end_timestamp,location_lat,location_lon,user_id,
+        'SELECT name,start_timestamp,end_timestamp,location_lat,location_lon,downloadable,user_id,
             IF(access_code IS NULL, 0, 1) AS access_code_required
             FROM presentations WHERE id_code=? LIMIT 1');
     if(!$stmt) {
@@ -28,7 +28,7 @@ function get_presentation_info() {
         if (!$stmt->execute()) {
             throw new Exception('Error in the question query ' . $stmt->error, $stmt->errno);
         }
-        $stmt->bind_result($name,$start,$end,$lat,$lon,$userId,$req_code);
+        $stmt->bind_result($name,$start,$end,$lat,$lon,$download,$userId,$req_code);
         if($stmt->fetch()) {
             $presentation = [
                 'id_code' => $presentationCode,
@@ -37,6 +37,7 @@ function get_presentation_info() {
                 'end_timestamp' => $end,
                 'access_code' => $req_code?true:false,
                 'location' => ['lat'=>$lat, 'lon'=>$lon],
+                'downloadable' => $download,
                 'author' => $userId
             ];
         } else {

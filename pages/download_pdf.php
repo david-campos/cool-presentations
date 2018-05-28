@@ -6,7 +6,7 @@
 
     function is_downloadable($mysqli) {
         $stmt = $mysqli->prepare('SELECT downloadable FROM presentations WHERE id_code=?');
-        $id = 'CA978112CA1BBDCAFAC231B39A23DC4DA786EFF8147C4E72B9807785AFEE48BB';
+        $id = '88678f1d59f7cce2d8aaa8a82c745ca4e1329991e9c684890bd2048fbe18cdf7';
         $stmt->bind_param('s', $id);
         if (!$stmt->execute()) {
             http_response_code(500);
