@@ -30,6 +30,9 @@ $(function(){
 		
 		var xcor = $("#xcor").val();
 		var ycor = $("#ycor").val();
+		var width = $("#width").val();
+		var height = $("#height").val();
+		
 		
 		var multiplechoice = 0;
 		if ($('#multiplechoice').is(":checked")){
@@ -43,7 +46,8 @@ $(function(){
 		var answer5 = $("#answer5").val();
 		
 		var myObject={present_name:present_name, code_access:code_access,downloable:downloable,diaini:diaini,horaini:horaini,
-						diafin:diafin,horafin:horafin,lat:lat,lng:lng,question:question,page:page,xcor:xcor,ycor:ycor,multiplechoice:multiplechoice,
+						diafin:diafin,horafin:horafin,lat:lat,lng:lng,question:question,page:page,xcor:xcor,ycor:ycor,
+						width:width,height:height,multiplechoice:multiplechoice,
 						answer1:answer1,answer2:answer2,answer3:answer3,answer4:answer4,answer5:answer5};
 		return myObject;
 		

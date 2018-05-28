@@ -78,8 +78,8 @@ try {
 	$multiplechoice=$_POST['multiplechoice'];
 	$xcor = $_POST['xcor'];
 	$ycor = $_POST['ycor'];
-	$width=50.00;
-	$height=50.00;
+	$width = $_POST['width'];
+	$height = $_POST['height'];
 	$answer1 = $_POST['answer1'];
 	$answer2 = $_POST['answer2'];
 	$answer3 = $_POST['answer3'];
@@ -100,19 +100,6 @@ try {
 }
 
 
-
-function insert_borrar($mysqli,$borrar){
-	$stmt = $mysqli->prepare('INSERT INTO borrar VALUES (?)');
-	$stmt->bind_param('s',$borrar);
-	if(!$stmt->execute()) {
-		http_response_code(500);
-        $stmt->close();
-        $mysqli->close();
-        throw new RuntimeException('Error in the query '.$stmt->errno);
-    }
-    $stmt->close();
-	
-}
 
 
 function insert_survey($mysqli,$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code,$width,$height){

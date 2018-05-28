@@ -63,8 +63,8 @@
 					
 					<!--our form-->
 					<!--<h2>Chosen Location</h2>-->
-					<input type="text" id="lat"  readonly="yes"><br>
-					<input type="text" id="lng" readonly="yes">
+					<input type="text" id="lat"  readonly="yes" style="visibility:hidden"><br>
+					<input type="text" id="lng" readonly="yes" style="visibility:hidden">
 					
 		  </div>
 	  </div>
@@ -83,6 +83,11 @@
 				<label>Position X and Y (px):</label>
 				<input type="number" id="xcor" class="form-control" value="0">
 				<input type="number" id="ycor" class="form-control" value="0">	
+			</div>
+			<div class="form-group">
+				<label>Width and Height (px)</label>
+				<input type="number" id="width" class="form-control" value="0">
+				<input type="number" id="height" class="form-control" value="0">	
 			</div>
 			<div class="checkbox">
 				<label><input id='multiplechoice' type="checkbox"> Multiple choice allowed?</label>
