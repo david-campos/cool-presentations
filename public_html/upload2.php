@@ -63,12 +63,13 @@ if (isset($_GET['multiplechoice'])) {
 }
 $xcor = $_GET['xcor'];
 $ycor = $_GET['ycor'];
+$width=50.00;
+$height=50.00;
 
 
-
-function insert_survey($mysqli,$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code){
-	$stmt = $mysqli->prepare('INSERT INTO surveys VALUES (?,?,?,?,?,?,?)');
-	$stmt->bind_param('isddiis',$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code);
+function insert_survey($mysqli,$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code,$width,$height){
+	$stmt = $mysqli->prepare('INSERT INTO surveys VALUES (?,?,?,?,?,?,?,?,?)');
+	$stmt->bind_param('isddiisdd',$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code,$width,$height);
 	if(!$stmt->execute()) {
 		http_response_code(500);
         $stmt->close();
@@ -123,7 +124,7 @@ function prueba($mysqli,$id_code,$name,$start,$fin,$lat,$lon,$access_code,$downl
 
 prueba($mysqli,$id_code,$name,$start,$fin,$lat,$lng,$access_code,$downloable,$user_id);
 
-insert_survey($mysqli,$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code);
+insert_survey($mysqli,$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code,$width,$height);
 //-------------ANSWERS----------------------//
 
 
