@@ -68,8 +68,8 @@
 					
 		  </div>
 	  </div>
-	   <div class="form-group">
-		<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo2">Add Survey</button>
+	   <div class="form-group clonedInput" id="clonedInput" >
+		<button type="button" class="btn btn-info clone" id="mylove" data-toggle="collapse" data-target="#demo2">Add Survey</button>
 		  <div id="demo2" class="collapse">
 			<div class="form-group">
 				<label>Question:</label>
@@ -93,8 +93,8 @@
 				<label><input id='multiplechoice' type="checkbox"> Multiple choice allowed?</label>
 			</div>
 			
-			<div class="form-group"id="primer_answer">
-				<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo3">Add Answers</button>
+			<div class="form-group"id="primer_answer" class="car_well">
+				<button type="button" class="btn btn-info" id="primer_button" data-toggle="collapse" data-target="#demo3">Add Answers</button>
 				  <div id="demo3" class="collapse">
 					<div class="form-group">
 						<label>Answer1:</label>
@@ -118,10 +118,6 @@
 					</div>
 				  </div>
 			</div>
-			<script type="text/javascript">
-				var primer_survery = document.getElementById('demo');
-				
-			</script>
 		  </div>
 	  </div>
 	</form> 
