@@ -8,6 +8,7 @@ $(document).ready(()=>{
     overSlides = $('#over-slides');
     
     var pwd_ok = false;
+    var pass_pdf_user_input = ""
     var pdfDoc = null, pageNum = 1;
     var url = "";
     /**
@@ -32,6 +33,10 @@ $(document).ready(()=>{
         (pdfDoc_) => {
           pdfDoc = pdfDoc_;
           pwd_ok = true;
+          //let link = $("#download_btn");
+          //if (link.size() === 1) {
+            $('#download_btn').attr('href','presentation_access.php?presentation_code=' + PRES.id_code + '&access_code=' + pass_pdf_user_input)
+          //}
           $('#passwordModal').modal('hide');
           let pageCount = document.getElementById('page_count');
           if(pageCount) pageCount.textContent = pdfDoc.numPages;
@@ -249,12 +254,15 @@ $(document).ready(()=>{
         $('#passwordModal .loader').show();
         $('#pass_dialog_fail').hide();
         // hash pass even before sending (sha.js)
-        var shaObj = new jsSHA("SHA-512", "TEXT");
+        var shaObj = new jsSHA("SHA-512", "TEXT");        
         shaObj.update(pwd);
-        pwd = shaObj.getHash("HEX");
+        pwd = shaObj.getHash("HEX");        
+        pass_pdf_user_input = pwd
+        $.post("header.php", {"pass": pwd});
         loadPdf(pwd);
     });
     
+
     document.getElementById('next').addEventListener('click', onNextPage);
     
     window.addEventListener("swap", function(event) {

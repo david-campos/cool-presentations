@@ -19,6 +19,15 @@
   </ul>
   <ul class="nav navbar-nav navbar-right text-light">
     <li class="nav-item" >
+    <?php
+      if (isset($presentation['downloadable'])) {
+          ?>
+              <a>
+                <a href="#" role="button" class="btn btn-primary" id="download_btn">Download</button>
+              </a>
+          <?php
+      } 
+    ?>
 		<a href="?p=mypres" style="color:inherit;">
         <span style="font-size: 1.5em; margin-right: 0.3em;"><i class="fas fa-user"></i></span>
         <?php echo $_SESSION['user']; ?>
