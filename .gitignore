@@ -1,3 +1,4 @@
 # Do not copy database info!
 include/database_data.php
+uploaded_pdfs/*
 *.pdf
