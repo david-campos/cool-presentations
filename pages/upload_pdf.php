@@ -28,7 +28,7 @@
 	 
 	 
 	 
-	<form class="form-inline" id="primaryButton"  action="upload2.php" onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
+	<form class="form-horizontal" id="primaryButton"  action="upload2.php" >
 	  <div class="form-group">
 		<label >Presentation name:</label>
 		<input type="text" class="form-control" name="present_name" value="Nombre_presentación">
@@ -42,20 +42,22 @@
 	  </div>
 	  <div class="form-group">
 		<label>Init time:</label>
-		<input type="date" name="diaini" value="Time start" >
-		<input type="time" name="horaini" value="Time start" >
+		<input type="date" name="diaini" class="form-control" value="Time start" >
+		<input type="time" name="horaini" class="form-control" value="Time start" >
 	  </div>
 	  <div class="form-group">
 		<label>End time:</label>
-		<input type="date" name="diafin" value="Time stop">
-		<input type="time" name="horafin" value="Time stop">
+		<input type="date" name="diafin" class="form-control" value="Time stop">
+		<input type="time" name="horafin" class="form-control" value="Time stop">
 	  </div>
 	  <div class="form-group">
-		<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
+		<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Add Location</button>
 		  <div id="demo" class="collapse">
 			 <h2>Select a location!</h2>
 					<p>Click on a location on the map to select it. Drag the marker to change location.</p>
-					
+					<style type="text/css">
+					  #map{ width:700px; height: 500px; }
+					</style>
 					<!--map div-->
 					<div id="map"></div>
 					
@@ -66,7 +68,58 @@
 					
 		  </div>
 	  </div>
-	  <button type="submit" class="btn btn-default" style="visibility:hidden;">Submit</button>
+	   <div class="form-group">
+		<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo2">Add Survey</button>
+		  <div id="demo2" class="collapse">
+			<div class="form-group">
+				<label>Question:</label>
+				<input type="text" name="question" class="form-control" value="Question">
+			</div>
+			<div class="form-group">
+				<label>Page number:</label>
+				<input type="number" name="page" class="form-control" value="0">
+			</div>
+			<div class="form-group">
+				<label>Position X and Y (px):</label>
+				<input type="number" name="xcor" class="form-control" value="0">
+				<input type="number" name="ycor" class="form-control" value="0">	
+			</div>
+			<div class="checkbox">
+				<label><input name='open' type="checkbox"> OPEN?</label>
+			</div>
+			<div class="checkbox">
+				<label><input name='multiplechoice' type="checkbox"> Multiple choice allowed?</label>
+			</div>
+			
+			<div class="form-group">
+				<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo3">Add Answers</button>
+				  <div id="demo3" class="collapse">
+					<div class="form-group">
+						<label>Answer1:</label>
+						<input type="text" name="answer1" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer2:</label>
+						<input type="text" name="answer2" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer3:</label>
+						<input type="text" name="answer3" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer4:</label>
+						<input type="text" name="answer4" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer5:</label>
+						<input type="text" name="answer5" class="form-control" >
+					</div>
+				  </div>
+			</div>
+		  </div>
+	  </div>
+	  
+	  <button type="submit" id="submitt" class="btn btn-default" style="visibility:hidden;">Submit</button>
 	</form> 
 	<!--
 	<form id="primaryButton"  action="upload2.php" onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
@@ -102,9 +155,7 @@
 		</tr>
 		<tr id="lastr">
 			<td>
-				<style type="text/css">
-					  #map{ width:700px; height: 500px; }
-				</style>
+				
 				<div>
 					 <h2>Select a location!</h2>
 					<p>Click on a location on the map to select it. Drag the marker to change location.</p>
