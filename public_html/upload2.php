@@ -76,7 +76,6 @@ function insert_survey($mysqli,$page,$question,$xcor,$ycor,$open,$multiplechoice
         throw new RuntimeException('Error in the query '.$stmt->errno);
     }
     $stmt->close();
-	$mysqli->close();
 }
 
 
@@ -94,7 +93,7 @@ $answer5 = $_GET['answer5'];
 function answer($mysqli,$num,$answer,$id_code,$page){
 	$votes=0;
 	echo "hola1";
-	$stmt = $mysqli->prepare('INSERT INTO surveys_answers VALUES (?,?,?,?,?)');
+	$stmt = $mysqli->prepare('INSERT INTO survey_answers VALUES (?,?,?,?,?)');
 	echo "hola2";
 	$stmt->bind_param('isisi',$num,$answer,$votes,$id_code,$page);
 	echo "hola3";
@@ -104,7 +103,7 @@ function answer($mysqli,$num,$answer,$id_code,$page){
         $mysqli->close();
         throw new RuntimeException('Error in the query '.$stmt->errno);
     }
-   
+	$stmt->close();   
 }
 
 //---------------FI ANSWERS-----------------//
@@ -118,7 +117,7 @@ function prueba($mysqli,$id_code,$name,$start,$fin,$lat,$lon,$access_code,$downl
         $mysqli->close();
         throw new RuntimeException('Error in the query '.$stmt->errno);
     }
-   
+	$stmt->close();   
 }
 
 
@@ -148,5 +147,6 @@ if ($answer5!=''){
 	$num=5;
 	answer($mysqli,$num,$answer5,$id_code,$page);
 }
+
 //echo $id_code.$name.$start.$fin.$lat.$lng.$access_code.$downloable.$user_id;
 //echo $page.$question.$xcor.$ycor.$open.$multiplechoice.$id_code;

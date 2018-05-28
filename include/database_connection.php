@@ -1,6 +1,6 @@
 <?php
 // Database connection data
-require dirname(__FILE__) . '/database_data.php';
+require dirname(__FILE__) . '/database_data_template.php';
 
 define("CURRENT_DATABASE_VERSION", 3);
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_DATABASE);
