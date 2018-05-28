@@ -62,7 +62,7 @@
                 %%ANSWERS%%
             </ul>
         </div>
-        <div class="row">
+        <div class="row" id="vote-button">
             <button type="button" class="btn btn-success btn-block">Votar</button>
         </div>
       </form>
@@ -70,6 +70,16 @@
     <!-- Survey answer template -->
     <script type="text/html" id="survey-answer-template">
             <li data-value="%%VALUE%%" class="list-group-item">%%TEXT%%</li>
+    </script>
+    <!-- Voted survey answer template -->
+    <script type="text/html" id="voted-survey-answer-template">
+            <li data-value="%%VALUE%%" class="list-group-item">
+                %%TEXT%% <br>
+                <span class="votes">%%VOTES%%</span> votes
+                <div class="progress bg-dark">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="%%PERCENTAGE%%" aria-valuemin="0" aria-valuemax="100">%%PERCENTAGE%%%</div>
+                </div>
+            </li>
     </script>
 <?php endif; ?>
 

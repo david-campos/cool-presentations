@@ -16,5 +16,6 @@
         const PRES = <?php echo $jsonPres; ?>;
         const SURVEYS = <?php echo $jsonPolls; ?>;
         const PRES_CODE = "<?php echo $presentation['id_code']; ?>";
+        const PRESENTATOR_MODE = <?php echo (isset($_SESSION['user_id'])&&$_SESSION['user_id']===$presentation['author']?'true':'false');?>;
     </script>
 <?php endif; ?>

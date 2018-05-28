@@ -1,9 +1,18 @@
 <?php
-    include dirname(__FILE__).'/viewer_php_functions.php';
+    include dirname(__FILE__).'/../include/presentations.php';
+    include dirname(__FILE__).'/../include/surveys.php';
+
+    class NoPresentationCodeException extends Exception {}
+
     $error = "";
     try {
-        $presentation = get_presentation_info();
-        $polls = get_polls_for_presentation($presentation['id_code']);
+        if(!isset($_GET['id']) || preg_match('/^[0-9a-fA-F]{64}$/', $_GET['id'])!==1) {
+            throw new NoPresentationCodeException('No identification code of the presentation or invalid one given.');
+        }
+        $presentationCode = $_GET['id'];
+    
+        $presentation = get_presentation_info($presentationCode);
+        $polls = get_polls_for_presentation($presentationCode);
     } catch (NoPresentationCodeException $npce) {
         $presentation = null;
         $error = 'No presentation code given.';

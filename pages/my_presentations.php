@@ -5,7 +5,6 @@ require dirname(__FILE__).'/../include/database_connection.php';
 <div class="row justify-content-center">
   <div class="col-sm-10">
 <?php
-session_start();
 $user_id=$_SESSION['user_id'];
 if(($result=$mysqli->query(
     'SELECT id_code, name, start_timestamp, end_timestamp '.

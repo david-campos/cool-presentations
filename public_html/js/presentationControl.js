@@ -32,7 +32,6 @@ $(document).ready(()=>{
         }
         // If absolute URL from the remote server is provided, configure the CORS
         // header on that server
-        console.log(url);
         pdfjsLib.getDocument(url).then(
         (pdfDoc_) => {
           pdfDoc = pdfDoc_;
@@ -58,6 +57,8 @@ $(document).ready(()=>{
     allowedTime = 500, // maximum time allowed to travel that distance
     elapsedTime,
     startTime;
+    
+    var currentSurvey = null;
     
     // Object to do the swap on
     var doSwapOn = overSlides[0];
@@ -139,10 +140,21 @@ $(document).ready(()=>{
 		var renderTask = page.render(renderContext);
         
         overSlides.width($(canvas).width());
-        overSlides.height($(canvas).height());  
+        overSlides.height($(canvas).height());
         if(SURVEYS[num]) {
-            renderSurvey(SURVEYS[num]);
+            console.log(SURVEYS[num]);
+            if(currentSurvey && currentSurvey.drawnAnswers) {
+                currentSurvey.drawnAnswers = null;
+            }
+            currentSurvey = SURVEYS[num];
+            // survey callback
+            surveyUpdateCallback();
+            renderSurvey(currentSurvey);
         } else {
+            if(currentSurvey && currentSurvey.drawnAnswers) {
+                currentSurvey.drawnAnswers = null;
+            }
+            currentSurvey = null;
             deleteSurvey();
         }
 
@@ -169,6 +181,7 @@ $(document).ready(()=>{
     
     var surveyTemplate = $('#survey-template').text();
     var surveyAnswerTemplate = $('#survey-answer-template').text();
+    var votedSurveyAnswerTemplate = $('#voted-survey-answer-template').text();
     function renderSurvey(survey) {
         let answersHtmlStr = "";
         for(let ans of survey.answers) {
@@ -183,6 +196,8 @@ $(document).ready(()=>{
         // survey.open survey.multipleChoice
         newElement.css("left", survey.pos.x + "%");
         newElement.css("top", survey.pos.y + "%");
+        newElement.css("width", survey.size.x + "%");
+        newElement.css("height", survey.size.y + "%");
         // survey answers interaction
         let answerLis = newElement.find("li");
         answerLis.click((event)=>{
@@ -197,7 +212,10 @@ $(document).ready(()=>{
                        "survey_page": survey.page,
                        "answer_id": newElement.find('li.active').attr("data-value")
                    },
-                   (data)=>{newElement.text(data)},
+                   (data)=>{
+                       survey.answered = true;
+                       surveyUpdateCallback(survey);
+                   },
                    'text')
                 .fail((data)=>{alert("Error: " + data.responseText);});
         });
@@ -321,6 +339,64 @@ $(document).ready(()=>{
         }
     },true);
     
+    // Updates the survey information for the displayed survey
+    function surveyUpdateCallback() {
+        if( !currentSurvey ) {
+            return;
+        }
+        var theSurvey = currentSurvey;
+        $.get('survey_info.php',
+            {'pres_id': PRES_CODE,
+            'page': currentSurvey.page},
+            (data) => {
+                for(var key in data) {
+                    theSurvey[key] = data[key];
+                }
+                surveyAnswersDraw(theSurvey);
+                setTimeout(surveyUpdateCallback, 5000);
+            },
+            'json');
+    }
+    
+    function surveyAnswersDraw(survey) {
+        if(currentSurvey == survey) {
+            if(survey.answered || !survey.open || PRESENTATOR_MODE) {
+                let sum = survey.answers.reduce((prev,next)=>prev+parseInt(next.votes), 0);
+                if(!currentSurvey.drawnAnswers) {
+                    let surveyFormUl = overSlides.find(".survey ul");
+                    overSlides.find("#vote-button").remove();
+                    surveyFormUl.empty();
+                    let sum = survey.answers.reduce((prev,next)=>prev+parseInt(next.votes), 0);
+                    let answers = [];
+                    for(let ans of survey.answers) {
+                        let percentage = Math.round(parseInt(ans.votes) / sum * 100);
+                        let newAnswer = $(votedSurveyAnswerTemplate
+                            .replace("%%VALUE%%", ans.id)
+                            .replace("%%TEXT%%", ans.text)
+                            .replace("%%VOTES%%", ans.votes)
+                            .replace("%%PERCENTAGE%%", percentage)
+                            .replace("%%PERCENTAGE%%", percentage));
+                        newAnswer.find(".progress-bar").css("width", percentage+"%");
+                        answers.push(newAnswer);
+                    }
+                    currentSurvey.drawnAnswers = answers;
+                    surveyFormUl.append(answers);
+                } else {
+                    for(let i=0; i < survey.answers.length; i+=1) {
+                        let ans = survey.answers[i];
+                        let li = survey.drawnAnswers[i];
+                        let percentage = Math.round(parseInt(ans.votes) / sum * 100);
+                        let bar = li.find(".progress-bar");
+                        li.find(".progress-bar")
+                          .css("width", percentage+"%")
+                          .text(percentage+"%")
+                          .attr("aria-valuenow", percentage);
+                        li.find(".votes").text(ans.votes);
+                    }
+                }
+            }
+        }
+    }
     
     loadPdf();
 });
