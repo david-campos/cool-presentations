@@ -15,8 +15,6 @@ require dirname(__FILE__) . '/../include/database_connection.php';
 
 if(!session_id()) session_start();
 
-
-
 try {
     if (
         !isset($_FILES['file']['error']) ||

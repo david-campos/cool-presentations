@@ -9,12 +9,20 @@
 	$pages_dir = '../pages/';
 	$pages_scripts_file_sufix = "_scripts";
     $pages_styles_file_sufix = "_styles";
+    $pages_php_scripts_file_sufix = "_php_scripts";
 	// We get the current page from the GET variables, or set a default one
 	$current_page_key = (isset($_GET['p'])?$_GET['p']:'ini');
     // Look for the page and save $current_page_file if it is right
 	$current_page_file = "";
 	if(array_key_exists($current_page_key, $pages)) {
 		$current_page_file = $pages[$current_page_key];
+	}
+    
+    if($current_page_file !== "") {
+		$scripts_file = $pages_dir.$current_page_file.$pages_php_scripts_file_sufix.'.php';
+		if(file_exists($scripts_file)) {
+			include $scripts_file;
+		}
 	}
 ?>
 <!doctype html>
