@@ -4,7 +4,8 @@
 	
     // $pages maps the page key to the page files names, this are the only
 	// allowed pages to load into the body (preventing attacks)
-	$pages = ['ini'=>'inicio', 'view'=>'viewer', 'log'=>'login', 'upload'=>'upload_pdf', 'download'=>'download_pdf', 'mypres'=>'my_presentations'];
+    // Please notice the key 'invalid' is reserved for invalid keys introduced by the client
+	$pages = ['ini'=>'inicio', 'view'=>'viewer', 'log'=>'login', 'upload'=>'upload_pdf', 'mypres'=>'my_presentations'];
 	// Some variables to configure the pages directory, styles and scripts file
 	$pages_dir = '../pages/';
 	$pages_scripts_file_sufix = "_scripts";
@@ -16,7 +17,9 @@
 	$current_page_file = "";
 	if(array_key_exists($current_page_key, $pages)) {
 		$current_page_file = $pages[$current_page_key];
-	}
+	} else {
+        $current_page_key = 'invalid'; // invalid key
+    }
     
     if($current_page_file !== "") {
 		$scripts_file = $pages_dir.$current_page_file.$pages_php_scripts_file_sufix.'.php';

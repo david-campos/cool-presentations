@@ -37,7 +37,7 @@ function get_presentation_info() {
                 'end_timestamp' => $end,
                 'access_code' => $req_code?true:false,
                 'location' => ['lat'=>$lat, 'lon'=>$lon],
-                'downloadable' => $download,
+                'downloadable' => $download?true:false,
                 'author' => $userId
             ];
         } else {

@@ -7,8 +7,6 @@ $(document).ready(()=>{
     ctx = canvas.getContext('2d'),
     overSlides = $('#over-slides');
     
-    var pwd_ok = false;
-    var pass_pdf_user_input = ""
     var pdfDoc = null, pageNum = 1;
     var url = "";
     /**
@@ -32,11 +30,10 @@ $(document).ready(()=>{
         pdfjsLib.getDocument(url).then(
         (pdfDoc_) => {
           pdfDoc = pdfDoc_;
-          pwd_ok = true;
-          //let link = $("#download_btn");
-          //if (link.size() === 1) {
-            $('#download_btn').attr('href','presentation_access.php?presentation_code=' + PRES.id_code + '&access_code=' + pass_pdf_user_input)
-          //}
+          let link = $("#download_btn");
+          if (link.length === 1) {
+            $('#download_btn').attr('href', url);
+          }
           $('#passwordModal').modal('hide');
           let pageCount = document.getElementById('page_count');
           if(pageCount) pageCount.textContent = pdfDoc.numPages;
@@ -256,9 +253,7 @@ $(document).ready(()=>{
         // hash pass even before sending (sha.js)
         var shaObj = new jsSHA("SHA-512", "TEXT");        
         shaObj.update(pwd);
-        pwd = shaObj.getHash("HEX");        
-        pass_pdf_user_input = pwd
-        $.post("header.php", {"pass": pwd});
+        pwd = shaObj.getHash("HEX");
         loadPdf(pwd);
     });
     
@@ -281,21 +276,18 @@ $(document).ready(()=>{
     }, true);
 
     window.addEventListener("wheel", function(event) {
-        if (pwd_ok) 
-        {
-            if (event.defaultPrevented) {
-                return;
-            }
-
-            if (event.deltaY > 0) {
-                onNextPage()
-            }
-            else {
-                onPrevPage()
-            }
-
-            event.preventDefault();
+        if (event.defaultPrevented) {
+            return;
         }
+
+        if (event.deltaY > 0) {
+            onNextPage()
+        }
+        else {
+            onPrevPage()
+        }
+
+        event.preventDefault();
     }, true);
 
     

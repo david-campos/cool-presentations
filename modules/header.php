@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark bg-dark justify-content-between">
   <a class="navbar-brand" href=".">Presentations</a>
 <?php
-  if (!isset($_SESSION['user_id'])):
+  if(!isset($_SESSION['user_id'])):
     if($current_page_key != 'log'):
 ?>
   <ul class="nav navbar-nav navbar-right">
@@ -19,15 +19,9 @@
   </ul>
   <ul class="nav navbar-nav navbar-right text-light">
     <li class="nav-item" >
-    <?php
-      if (isset($presentation['downloadable'])) {
-          ?>
-              <a>
-                <a href="#" role="button" class="btn btn-primary" id="download_btn">Download</button>
-              </a>
-          <?php
-      } 
-    ?>
+<?php if($current_page_key==='view' && $presentation!==null && $presentation['downloadable']): ?>
+              <a role="button" class="btn btn-primary" id="download_btn">Download</a>
+<?php endif; ?>
 		<a href="?p=mypres" style="color:inherit;">
         <span style="font-size: 1.5em; margin-right: 0.3em;"><i class="fas fa-user"></i></span>
         <?php echo $_SESSION['user']; ?>
