@@ -6,7 +6,6 @@ $(document).ready(()=>{
     canvas = document.getElementById('the-canvas'),
     ctx = canvas.getContext('2d'),
     overSlides = $('#over-slides');
-    
     var pdfDoc = null, pageNum = 1;
     var url = "";
     /**
@@ -253,7 +252,9 @@ $(document).ready(()=>{
         // hash pass even before sending (sha.js)
         var shaObj = new jsSHA("SHA-512", "TEXT");        
         shaObj.update(pwd);
-        pwd = shaObj.getHash("HEX");
+        pwd = shaObj.getHash("HEX");        
+        pass_pdf_user_input = pwd
+        $.post("header.php", {"pass": pwd});
         loadPdf(pwd);
     });
     
