@@ -28,27 +28,27 @@
 	 
 	 
 	 
-	<form class="form-horizontal" id="primaryButton"  action="upload2.php" >
+	<form class="form-horizontal" id="primaryButton" onsubmit="return mySubmitFunction(event)" >
 	  <div class="form-group">
 		<label >Presentation name:</label>
-		<input type="text" class="form-control" name="present_name" value="Nombre_presentación">
+		<input type="text" class="form-control" id="present_name" >
 	  </div>
 	  <div class="form-group">
 		<label>Access code:</label>
-		<input class="form-control" type="text" name="code_access" value="Access_code">
+		<input class="form-control" type="text" id="code_access" >
 	  </div>
 	  <div class="checkbox">
-		<label><input name='downloable' type="checkbox"> Downloable?</label>
+		<label><input id='downloable' type="checkbox"> Downloable?</label>
 	  </div>
 	  <div class="form-group">
 		<label>Init time:</label>
-		<input type="date" name="diaini" class="form-control" value="Time start" >
-		<input type="time" name="horaini" class="form-control" value="Time start" >
+		<input type="date" id="diaini" class="form-control"  >
+		<input type="time" id="horaini" class="form-control"  >
 	  </div>
 	  <div class="form-group">
 		<label>End time:</label>
-		<input type="date" name="diafin" class="form-control" value="Time stop">
-		<input type="time" name="horafin" class="form-control" value="Time stop">
+		<input type="date" id="diafin" class="form-control" >
+		<input type="time" id="horafin" class="form-control" >
 	  </div>
 	  <div class="form-group">
 		<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Add Location</button>
@@ -63,8 +63,8 @@
 					
 					<!--our form-->
 					<!--<h2>Chosen Location</h2>-->
-					<input type="text" id="lat" name="lat" readonly="yes"><br>
-					<input type="text" id="lng" name="lng"readonly="yes">
+					<input type="text" id="lat"  readonly="yes"><br>
+					<input type="text" id="lng" readonly="yes">
 					
 		  </div>
 	  </div>
@@ -73,22 +73,19 @@
 		  <div id="demo2" class="collapse">
 			<div class="form-group">
 				<label>Question:</label>
-				<input type="text" name="question" class="form-control" value="Question">
+				<input type="text" id="question" class="form-control" value="Question">
 			</div>
 			<div class="form-group">
 				<label>Page number:</label>
-				<input type="number" name="page" class="form-control" value="0">
+				<input type="number" id="page" class="form-control" value="0">
 			</div>
 			<div class="form-group">
 				<label>Position X and Y (px):</label>
-				<input type="number" name="xcor" class="form-control" value="0">
-				<input type="number" name="ycor" class="form-control" value="0">	
+				<input type="number" id="xcor" class="form-control" value="0">
+				<input type="number" id="ycor" class="form-control" value="0">	
 			</div>
 			<div class="checkbox">
-				<label><input name='open' type="checkbox"> OPEN?</label>
-			</div>
-			<div class="checkbox">
-				<label><input name='multiplechoice' type="checkbox"> Multiple choice allowed?</label>
+				<label><input id='multiplechoice' type="checkbox"> Multiple choice allowed?</label>
 			</div>
 			
 			<div class="form-group">
@@ -96,30 +93,28 @@
 				  <div id="demo3" class="collapse">
 					<div class="form-group">
 						<label>Answer1:</label>
-						<input type="text" name="answer1" class="form-control" >
+						<input type="text" id="answer1" class="form-control" >
 					</div>
 					<div class="form-group">
 						<label>Answer2:</label>
-						<input type="text" name="answer2" class="form-control" >
+						<input type="text" id="answer2" class="form-control" >
 					</div>
 					<div class="form-group">
 						<label>Answer3:</label>
-						<input type="text" name="answer3" class="form-control" >
+						<input type="text" id="answer3" class="form-control" >
 					</div>
 					<div class="form-group">
 						<label>Answer4:</label>
-						<input type="text" name="answer4" class="form-control" >
+						<input type="text" id="answer4" class="form-control" >
 					</div>
 					<div class="form-group">
 						<label>Answer5:</label>
-						<input type="text" name="answer5" class="form-control" >
+						<input type="text" id="answer5" class="form-control" >
 					</div>
 				  </div>
 			</div>
 		  </div>
 	  </div>
-	  
-	  <button type="submit" id="submitt" class="btn btn-default" style="visibility:hidden;">Submit</button>
 	</form> 
 	<!--
 	<form id="primaryButton"  action="upload2.php" onsubmit="setTimeout(function () { window.location.reload(); }, 10)">

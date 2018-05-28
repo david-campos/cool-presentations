@@ -1,13 +1,15 @@
 
  
+ function mySubmitFunction(evt) {
+  evt.preventDefault();
+}
+ 
+ 
  
  $('#btnApiStart').on('click', function(evt){
     evt.preventDefault();
-	
-	document.getElementById('submitt').click();
 
     $('#drag-and-drop-zone').dmUploader('start');
-
 	
 	
   });
