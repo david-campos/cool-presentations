@@ -52,7 +52,7 @@ function delete_presentation($mysqli,$id_code){
 }
 
 
-$id_code=$_SESSION['actual_pres'];
+$id_code=$_POST['data'];
 
  
 delete_presentation($mysqli,$id_code);

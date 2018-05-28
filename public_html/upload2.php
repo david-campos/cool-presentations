@@ -19,7 +19,7 @@ require dirname(__FILE__) . '/../include/database_connection.php';
 
 
 $id_code = hash('sha256', uniqid(rand()));
-$_SESSION['filepath']=$id_code;
+//$_SESSION['filepath']=$id_code;
 
 
 $name=$_GET['present_name'];
@@ -148,6 +148,6 @@ if ($answer5!=''){
 	$num=5;
 	answer($mysqli,$num,$answer5,$id_code,$page);
 }
-
+$mysqli->close();
 //echo $id_code.$name.$start.$fin.$lat.$lng.$access_code.$downloable.$user_id;
 //echo $page.$question.$xcor.$ycor.$open.$multiplechoice.$id_code;

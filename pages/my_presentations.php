@@ -44,7 +44,7 @@ if(($result=$mysqli->query(
                 <p>Presentation from <?php echo $start; ?> till <?php echo $end; ?>.</p>
 				<!-- BOORRAAAR -->
 				<div id='foo'>
-					<button type="button"  class="btn btn-danger" value="<?php echo $pres['id_code']; ?>">REMOVE PRESENTATION</button>
+					<button type="button"  class="btn btn-danger"  data-id-presentation="<?php echo $pres['id_code']; ?>">REMOVE PRESENTATION</button>
 				</div>
 			
 				<!-- FIN    BOORRAAAR -->

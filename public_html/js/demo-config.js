@@ -10,6 +10,48 @@ $(function(){
     maxFileSize: 3000000, // 3 Megs 
 	auto: false,
 	extFilter: ["pdf"],
+	extraData: function(){
+		var present_name = $("#present_name").val();
+		var code_access = $("#code_access").val();
+		var downloable = 0;
+		if ($('#downloable').is(":checked")){
+			downloable=1;
+		}
+		var diaini = $("#diaini").val();
+		var horaini = $("#horaini").val();
+		var diafin = $("#diafin").val();
+		var horafin = $("#horafin").val();
+		
+		var lat = $("#lat").val();
+		var lng = $("#lng").val();
+		
+		var question = $("#question").val();
+		var page = $("#page").val();
+		
+		var xcor = $("#xcor").val();
+		var ycor = $("#ycor").val();
+		var width = $("#width").val();
+		var height = $("#height").val();
+		
+		
+		var multiplechoice = 0;
+		if ($('#multiplechoice').is(":checked")){
+			multiplechoice=1;
+		}
+		
+		var answer1 = $("#answer1").val();
+		var answer2 = $("#answer2").val();
+		var answer3 = $("#answer3").val();
+		var answer4 = $("#answer4").val();
+		var answer5 = $("#answer5").val();
+		
+		var myObject={present_name:present_name, code_access:code_access,downloable:downloable,diaini:diaini,horaini:horaini,
+						diafin:diafin,horafin:horafin,lat:lat,lng:lng,question:question,page:page,xcor:xcor,ycor:ycor,
+						width:width,height:height,multiplechoice:multiplechoice,
+						answer1:answer1,answer2:answer2,answer3:answer3,answer4:answer4,answer5:answer5};
+		return myObject;
+		
+	},
     onDragEnter: function(){
       // Happens when dragging something over the DnD area
       this.addClass('active');
