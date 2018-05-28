@@ -4,5 +4,5 @@
      */
     define("DB_HOST", "localhost");
     define("DB_USER", "root");
-    define("DB_PASS", "");
+    define("DB_PASS", "estif250195");
     define("DB_DATABASE", "database_1");

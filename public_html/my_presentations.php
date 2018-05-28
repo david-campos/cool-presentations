@@ -16,6 +16,25 @@ require dirname(__FILE__) . '/../include/database_connection.php';
 if(!session_id()) session_start();
 
 function delete_presentation($mysqli,$id_code){
+	
+	$stmt = $mysqli->prepare('DELETE FROM survey_answers WHERE presentations=?');
+	$stmt->bind_param('s', $id_code);
+	if(!$stmt->execute()) {
+		http_response_code(500);
+        $stmt->close();
+        $mysqli->close();
+        throw new RuntimeException('Error in the query '.$stmt->errno);
+    $stmt->close();
+	
+	$stmt = $mysqli->prepare('DELETE FROM surveys WHERE presentation_code=?');
+	$stmt->bind_param('s', $id_code);
+	if(!$stmt->execute()) {
+		http_response_code(500);
+        $stmt->close();
+        $mysqli->close();
+        throw new RuntimeException('Error in the query '.$stmt->errno);
+    $stmt->close();
+	
     $stmt = $mysqli->prepare('DELETE FROM presentations WHERE id_code=?');
 	$stmt->bind_param('s', $id_code);
 	if(!$stmt->execute()) {
@@ -24,7 +43,7 @@ function delete_presentation($mysqli,$id_code){
         $mysqli->close();
         throw new RuntimeException('Error in the query '.$stmt->errno);
     }
-    $stmt->close();
+	$stmt->close();
 	$mysqli->close();
      
 }
