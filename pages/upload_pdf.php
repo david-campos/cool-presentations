@@ -93,7 +93,7 @@
 				<label><input id='multiplechoice' type="checkbox"> Multiple choice allowed?</label>
 			</div>
 			
-			<div class="form-group">
+			<div class="form-group"id="primer_answer">
 				<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo3">Add Answers</button>
 				  <div id="demo3" class="collapse">
 					<div class="form-group">
@@ -102,15 +102,15 @@
 					</div>
 					<div class="form-group">
 						<label>Answer2:</label>
-						<input type="text" id="answer2" class="form-control" >
+						<input type="text"  id="answer2" class="form-control" >
 					</div>
 					<div class="form-group">
 						<label>Answer3:</label>
-						<input type="text" id="answer3" class="form-control" >
+						<input type="text"   id="answer3" class="form-control" >
 					</div>
 					<div class="form-group">
 						<label>Answer4:</label>
-						<input type="text" id="answer4" class="form-control" >
+						<input type="text"  id="answer4" class="form-control" >
 					</div>
 					<div class="form-group">
 						<label>Answer5:</label>
@@ -118,6 +118,10 @@
 					</div>
 				  </div>
 			</div>
+			<script type="text/javascript">
+				var primer_survery = document.getElementById('demo');
+				
+			</script>
 		  </div>
 	  </div>
 	</form> 

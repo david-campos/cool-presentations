@@ -19,7 +19,7 @@
             $mysqli->close();
             die('Error in the update statement ' . $stmt->errno);
         } else {
-            echo 'Row updated!';
+            echo 'VOTE SENT';
         }
         $stmt->close();
     }
