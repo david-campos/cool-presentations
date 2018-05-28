@@ -6,8 +6,11 @@ $(document).ready(()=>{
     canvas = document.getElementById('the-canvas'),
     ctx = canvas.getContext('2d'),
     overSlides = $('#over-slides');
+    
+    var pwd_ok = false;
     var pdfDoc = null, pageNum = 1;
     var url = "";
+    var link = $("#download_btn");
     /**
      * Asynchronously downloads PDF.
      */  
@@ -24,15 +27,16 @@ $(document).ready(()=>{
         if(access_code) {
             url += "&access_code="+encodeURI(access_code);
         }
+        if (link.length === 1) {
+          link.attr('href', url);
+        }
         // If absolute URL from the remote server is provided, configure the CORS
-        // header on that server.    
+        // header on that server
+        console.log(url);
         pdfjsLib.getDocument(url).then(
         (pdfDoc_) => {
           pdfDoc = pdfDoc_;
-          let link = $("#download_btn");
-          if (link.length === 1) {
-            $('#download_btn').attr('href', url);
-          }
+          pwd_ok = true;
           $('#passwordModal').modal('hide');
           let pageCount = document.getElementById('page_count');
           if(pageCount) pageCount.textContent = pdfDoc.numPages;
@@ -250,15 +254,12 @@ $(document).ready(()=>{
         $('#passwordModal .loader').show();
         $('#pass_dialog_fail').hide();
         // hash pass even before sending (sha.js)
-        var shaObj = new jsSHA("SHA-512", "TEXT");        
+        var shaObj = new jsSHA("SHA-512", "TEXT");
         shaObj.update(pwd);
-        pwd = shaObj.getHash("HEX");        
-        pass_pdf_user_input = pwd
-        $.post("header.php", {"pass": pwd});
+        pwd = shaObj.getHash("HEX");
         loadPdf(pwd);
     });
     
-
     document.getElementById('next').addEventListener('click', onNextPage);
     
     window.addEventListener("swap", function(event) {
@@ -277,18 +278,21 @@ $(document).ready(()=>{
     }, true);
 
     window.addEventListener("wheel", function(event) {
-        if (event.defaultPrevented) {
-            return;
-        }
+        if (pwd_ok) 
+        {
+            if (event.defaultPrevented) {
+                return;
+            }
 
-        if (event.deltaY > 0) {
-            onNextPage()
-        }
-        else {
-            onPrevPage()
-        }
+            if (event.deltaY > 0) {
+                onNextPage()
+            }
+            else {
+                onPrevPage()
+            }
 
-        event.preventDefault();
+            event.preventDefault();
+        }
     }, true);
 
     

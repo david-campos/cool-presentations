@@ -7,7 +7,6 @@
     }
     
     $code = $_GET['presentation_code'];
-    echo $code;
     
     if(preg_match('/^[0-9a-fA-F]{64}$/', $code)!==1) {
         http_response_code(400);
@@ -51,7 +50,7 @@
             }
         }
     }
-       
+    
     $file = '../uploaded_pdfs/'.$code.'.pdf';
 
     if (file_exists($file)) {
