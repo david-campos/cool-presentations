@@ -90,8 +90,35 @@
 			<div class="checkbox">
 				<label><input name='multiplechoice' type="checkbox"> Multiple choice allowed?</label>
 			</div>
+			
+			<div class="form-group">
+				<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo3">Add Answers</button>
+				  <div id="demo3" class="collapse">
+					<div class="form-group">
+						<label>Answer1:</label>
+						<input type="text" name="answer1" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer2:</label>
+						<input type="text" name="answer2" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer3:</label>
+						<input type="text" name="answer3" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer4:</label>
+						<input type="text" name="answer4" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer5:</label>
+						<input type="text" name="answer5" class="form-control" >
+					</div>
+				  </div>
+			</div>
 		  </div>
 	  </div>
+	  
 	  <button type="submit" id="submitt" class="btn btn-default" style="visibility:hidden;">Submit</button>
 	</form> 
 	<!--

@@ -5,9 +5,9 @@
     evt.preventDefault();
 	
 	document.getElementById('submitt').click();
-	sleep(2000);
+
     $('#drag-and-drop-zone').dmUploader('start');
-	sleep(1000);
+
 	
 	
   });
