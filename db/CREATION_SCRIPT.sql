@@ -6,7 +6,7 @@
 -- 	Author: David Campos Rodríguez <david.campos.r96@gmail.com>
 
 /*******************************************************************************
- * DATABASE VERSION = 3
+ * DATABASE VERSION = 4
  * 
  * NOT IMPLEMENTED:
  * 	Multiplicity of the relation "answers" on the side of SurveyAnswers (2..*)
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `table_version` (
     `version` INT UNSIGNED NOT NULL PRIMARY KEY
 );
 -- Insert version
-INSERT INTO `table_version`(`version`) VALUES (3);
+INSERT INTO `table_version`(`version`) VALUES (4);
 
 -- TABLES CREATION
 -- Users table
@@ -72,9 +72,11 @@ CREATE TABLE IF NOT EXISTS `presentations` (
 CREATE TABLE IF NOT EXISTS `surveys` (
 	`page` INT UNSIGNED NOT NULL,
 	`question` VARCHAR(255) NOT NULL,
-	`positionX` DECIMAL(5,2) NOT NULL DEFAULT '50.00',
-	`positionY` DECIMAL(5,2) NOT NULL DEFAULT '50.00',
-	`open` TINYINT NOT NULL DEFAULT 1,
+	`positionX` DECIMAL(5,2) NOT NULL DEFAULT '25.00',
+	`positionY` DECIMAL(5,2) NOT NULL DEFAULT '25.00',
+    `width` DECIMAL(5,2) NOT NULL DEFAULT '50.00',
+	`height` DECIMAL(5,2) NOT NULL DEFAULT '50.00',
+    `open` TINYINT NOT NULL DEFAULT 1,
 	`multiple_choice` TINYINT NOT NULL,
 	
 	`presentation_code` CHAR(128) NOT NULL,

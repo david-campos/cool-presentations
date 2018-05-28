@@ -57,7 +57,7 @@ function get_presentation_info() {
 function get_polls_for_presentation($presentationCode) {
     global $mysqli;
     $stmt = $mysqli->prepare(
-        'SELECT page,question,`positionX`,`positionY`,open,multiple_choice
+        'SELECT page,question,`positionX`,`positionY`,open,multiple_choice,width,height
             FROM surveys WHERE presentation_code=?');
     if(!$stmt) {
         throw new Exception('Error in the question query preparation ' . $mysqli->error, $mysqli->errno);
@@ -68,12 +68,13 @@ function get_polls_for_presentation($presentationCode) {
             throw new Exception('Error in the question query ' . $stmt->errno);
         }
         $polls = [];
-        $stmt->bind_result($page, $question, $posX, $posY, $open, $multipleChoice);
+        $stmt->bind_result($page, $question, $posX, $posY, $open, $multipleChoice, $width, $height);
         while($stmt->fetch()) {
             $polls[$page] = [
                 'page' => $page,
                 'question' => $question,
                 'pos' => ['x' => $posX, 'y' => $posY],
+                'size' => ['x' => $width, 'y' => $height],
                 'open' => $open,
                 'multipleChoice' => $multipleChoice
             ];
