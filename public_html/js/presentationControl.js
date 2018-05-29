@@ -60,7 +60,7 @@ $(document).ready(()=>{
     var currentSurvey = null;
     
     // Object to do the swap on
-    /*var doSwapOn = overSlides[0];
+    var doSwapOn = overSlides[0];
     
     doSwapOn.addEventListener('touchstart', function(e){
         var touchobj = e.changedTouches[0]
@@ -68,11 +68,11 @@ $(document).ready(()=>{
         startX = touchobj.pageX
         startY = touchobj.pageY
         startTime = new Date().getTime() // record time when finger first makes contact with surface
-        e.preventDefault()
+        //e.preventDefault()
     }, false)
         
     doSwapOn.addEventListener('touchmove', function(e){
-        e.preventDefault() // prevent scrolling when inside DIV
+        //e.preventDefault() // prevent scrolling when inside DIV
     }, false)
     
     doSwapOn.addEventListener('touchend', function(e){
@@ -106,7 +106,7 @@ $(document).ready(()=>{
         }
         
         //handleswipe(swiperightBol, event.target);
-    }, false)*/
+    }, false)
 
     function trigger(elem, name, event) {
         elem.dispatchEvent(event);
