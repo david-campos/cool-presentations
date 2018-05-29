@@ -38,7 +38,7 @@
 		<input class="form-control" type="text" id="code_access" >
 	  </div>
 	  <div class="checkbox">
-		<label><input id='downloable' type="checkbox"> Downloable?</label>
+		<label><input id='downloable' type="checkbox"> Downloadable?</label>
 	  </div>
 	  <div class="form-group">
 		<label>Init time:</label>
