@@ -190,8 +190,8 @@ $(document).ready(()=>{
                 .replace("%%TEXT%%", ans.text);
         }
         let htmlStr = surveyTemplate
-            .replace("%%QUESTION%%", survey.question)
-            .replace("%%ANSWERS%%", answersHtmlStr);
+            .replace("%%ANSWERS%%", answersHtmlStr)
+            .replace("%%QUESTION%%", survey.question);
         let newElement = $(htmlStr);
         // survey.open survey.multipleChoice
         newElement.css("left", survey.pos.x + "%");
@@ -370,12 +370,13 @@ $(document).ready(()=>{
                     let answers = [];
                     for(let ans of survey.answers) {
                         let percentage = Math.round(parseInt(ans.votes) / sum * 100);
-                        let newAnswer = $(votedSurveyAnswerTemplate
+                        let newAnswer = $(
+                            votedSurveyAnswerTemplate
                             .replace("%%VALUE%%", ans.id)
-                            .replace("%%TEXT%%", ans.text)
                             .replace("%%VOTES%%", ans.votes)
                             .replace("%%PERCENTAGE%%", percentage)
-                            .replace("%%PERCENTAGE%%", percentage));
+                            .replace("%%PERCENTAGE%%", percentage)
+                            .replace("%%TEXT%%", ans.text));
                         newAnswer.find(".progress-bar").css("width", percentage+"%");
                         answers.push(newAnswer);
                     }

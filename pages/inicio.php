@@ -4,6 +4,17 @@ require dirname(__FILE__).'/../include/database_connection.php';
 <main role="main" class="container-fluid">
 <div class="row justify-content-center">
   <div class="col-sm-10">
+    <div class="alert alert-info" id="geolocation">
+        <p><i class="fas fa-info-circle"></i>
+        If you give us access to your geolocation, we can search the presentation
+        you are currently in. (Not working in chrome for demo).
+        <p>Don't worry, we <strong>don't</strong> store your data on the server.</p>
+        <button type="button" class="btn btn-primary">
+            <i class="fas fa-map-marker-alt"></i> Find my presentation
+        </button>
+    </div>
+  </div>
+  <div class="col-sm-10">
 <?php
 if(($result=$mysqli->query(
     'SELECT id_code, name, start_timestamp, end_timestamp '.
@@ -30,7 +41,7 @@ if(($result=$mysqli->query(
               <a href=".?p=view&id=<?php echo $pres['id_code']; ?>">
                 <img height="500px" class="d-block w-100" src="img/random_background.jpg" alt="<?php echo $pres['name']; ?>">
               </a>
-              <div class="carousel-caption d-none d-md-block">
+              <div class="carousel-caption d-block">
                 <h5><?php echo $pres['name']; ?></h5>
 <?php
                 $date = new DateTime($pres['start_timestamp']);
@@ -65,4 +76,18 @@ endif;
 ?>
   </div>
 </div>
+<script type="text/html" id="item-template">
+    <div class="carousel-item">
+      <a href=".?p=view&id=%%PRES_ID%%">
+        <img height="500px" class="d-block w-100" src="img/random_background.jpg" alt="background">
+      </a>
+      <div class="carousel-caption d-none d-md-block">
+        <h5>%%PRES_NAME%%</h5>
+        <p>Presentation from %%PRES_START%% till %%PRES_END%%.</p>
+      </div>
+    </div>
+</script>
+<script type="text/html" id="indicator-template">
+    <li data-target="#carousel" data-slide-to="%%I%%"></li>
+</script>
 </main>

@@ -2,7 +2,7 @@
 /**
  * This script returns updated information about the given survey.
  */
-require_once dirname(__FILE__) . '/../include/surveys.php';
+require dirname(__FILE__) . '/../include/surveys.php';
 
 session_start();
 
