@@ -4,13 +4,16 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto text-light">
 <?php if(isset($_SESSION['user_id'])): ?>
         <li class="nav-item"><a class="nav-link" href="?p=upload"><i class="fas fa-plus-square"></i> New presentation</a></li>
         <li class="nav-item"><a class="nav-link" href="?p=mypres">My presentations</a></li>
 <?php endif; ?>
-<?php if($current_page_key==='view' && $presentation!==null && $presentation['downloadable']): ?>
+<?php if($current_page_key==='view'): ?>
+        <li class="nav-item"><a role="button" class="btn btn-primary" id="fs_btn">Full screen</a></li>
+<?php if($presentation!==null && $presentation['downloadable']): ?>
         <li class="nav-item"><a role="button" class="btn btn-primary" id="download_btn">Download</a></li>
+<?php   endif; ?>
 <?php endif; ?>
     </ul>
 

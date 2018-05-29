@@ -3,6 +3,10 @@ html {
   min-height: 100%;
 }
 
+nav .nav-item {
+  margin-right: 1em;
+}
+
 body {
   margin-bottom: 160px; /* Margin bottom by footer height */
   background-color: #eee;
@@ -12,6 +16,11 @@ body.fullscreen {
     margin: 0;
     padding: 0;
     overflow: hidden;
+}
+
+.btn {
+    padding: 1vw;
+    font-size: 3.5vw;
 }
 
 main {

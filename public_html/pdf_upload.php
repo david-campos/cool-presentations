@@ -67,8 +67,12 @@ try {
 	$lat=$_POST['lat'];
 	$lng=$_POST['lng'];
 	$access_code = $_POST['code_access'];
-	$access_code = hash('sha512', $access_code); 
-	$access_code=strtolower($access_code);
+    if($access_code !== "") {
+        $access_code = hash('sha512', $access_code); 
+        $access_code=strtolower($access_code);
+    } else {
+        $access_code = null;
+    }
 	$user_id=$_SESSION['user_id'];
 	$start = $fecha1." ".$hora1.":00";
 	$fin= $fecha2." ".$hora2.":00";

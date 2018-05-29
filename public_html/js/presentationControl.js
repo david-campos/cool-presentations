@@ -354,6 +354,10 @@ $(document).ready(()=>{
                 onNextPage()
                 event.preventDefault()
                 break;
+            case "f":
+            case "F":
+                toggleFullscreen();
+                break;
         }
     },true);
     
@@ -415,6 +419,20 @@ $(document).ready(()=>{
                 }
             }
         }
+    }
+    
+    $("#fs_btn").click(()=>{
+        toggleFullscreen();
+    });
+    
+    function toggleFullscreen() {
+        let body = $("body");
+        if(body.hasClass("fullscreen")) {
+            body.removeClass("fullscreen");
+        } else {
+            body.addClass("fullscreen");
+        }
+        $(window).resize();
     }
     
     loadPdf();
