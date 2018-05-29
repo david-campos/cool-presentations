@@ -60,7 +60,7 @@ $(document).ready(()=>{
     var currentSurvey = null;
     
     // Object to do the swap on
-    var doSwapOn = overSlides[0];
+    /*var doSwapOn = overSlides[0];
     
     doSwapOn.addEventListener('touchstart', function(e){
         var touchobj = e.changedTouches[0]
@@ -106,7 +106,7 @@ $(document).ready(()=>{
         }
         
         //handleswipe(swiperightBol, event.target);
-    }, false)
+    }, false)*/
 
     function trigger(elem, name, event) {
         elem.dispatchEvent(event);
