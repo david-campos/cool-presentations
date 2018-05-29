@@ -86,6 +86,35 @@ try {
 	$answer4 = $_POST['answer4'];
 	$answer5 = $_POST['answer5'];
 	
+	
+	$question2 = $_POST['question2'];
+	$page2 = $_POST['page2'];
+	$open2=1;
+	$multiplechoice2=$_POST['multiplechoice2'];
+	$xcor2 = $_POST['xcor2'];
+	$ycor2 = $_POST['ycor2'];
+	$width2 = $_POST['width2'];
+	$height2 = $_POST['height2'];
+	$answer6 = $_POST['answer6'];
+	$answer7 = $_POST['answer7'];
+	$answer8 = $_POST['answer8'];
+	$answer9 = $_POST['answer9'];
+	$answer10 = $_POST['answer10'];
+	
+	$question3 = $_POST['question3'];
+	$page3 = $_POST['page3'];
+	$open3=1;
+	$multiplechoice3=$_POST['multiplechoice3'];
+	$xcor3 = $_POST['xcor3'];
+	$ycor3 = $_POST['ycor3'];
+	$width3 = $_POST['width3'];
+	$height3 = $_POST['height3'];
+	$answer11 = $_POST['answer11'];
+	$answer12 = $_POST['answer12'];
+	$answer13 = $_POST['answer13'];
+	$answer14 = $_POST['answer14'];
+	$answer15 = $_POST['answer15'];
+	
 	//-------- FIN REOCJO JSON-------------//
 
 } catch (RuntimeException $e) {
@@ -104,7 +133,7 @@ try {
 
 function insert_survey($mysqli,$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code,$width,$height){
 	$stmt = $mysqli->prepare('INSERT INTO surveys VALUES (?,?,?,?,?,?,?,?,?)');
-	$stmt->bind_param('isddiisdd',$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code,$width,$height);
+	$stmt->bind_param('isddddiis',$page,$question,$xcor,$ycor,$width,$height,$open,$multiplechoice,$id_code);
 	if(!$stmt->execute()) {
 		http_response_code(500);
         $stmt->close();
@@ -146,6 +175,9 @@ function prueba($mysqli,$id_code,$name,$start,$fin,$lat,$lon,$access_code,$downl
 prueba($mysqli,$id_code,$name,$start,$fin,$lat,$lng,$access_code,$downloable,$user_id);
 
 insert_survey($mysqli,$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code,$width,$height);
+insert_survey($mysqli,$page2,$question2,$xcor2,$ycor2,$open2,$multiplechoice2,$id_code,$width2,$height2);
+
+insert_survey($mysqli,$page3,$question3,$xcor3,$ycor3,$open3,$multiplechoice3,$id_code,$width3,$height3);
 //-------------ANSWERS----------------------//
 
 
@@ -171,9 +203,55 @@ if ($answer5!=''){
 }
 
 
+if ($answer6!=''){
+	$num=1;
+	answer($mysqli,$num,$answer6,$id_code,$page2);
+}
+if ($answer7!=''){
+	$num=2;
+	answer($mysqli,$num,$answer7,$id_code,$page2);
+}
+if ($answer8!=''){
+	$num=3;
+	answer($mysqli,$num,$answer8,$id_code,$page2);
+}
+if ($answer9!=''){
+	$num=4;
+	answer($mysqli,$num,$answer9,$id_code,$page2);
+}
+if ($answer10!=''){
+	$num=5;
+	answer($mysqli,$num,$answer10,$id_code,$page2);
+}
+
+
+if ($answer11!=''){
+	$num=1;
+	answer($mysqli,$num,$answer11,$id_code,$page3);
+}
+if ($answer12!=''){
+	$num=2;
+	answer($mysqli,$num,$answer12,$id_code,$page3);
+}
+if ($answer13!=''){
+	$num=3;
+	answer($mysqli,$num,$answer13,$id_code,$page3);
+}
+if ($answer14!=''){
+	$num=4;
+	answer($mysqli,$num,$answer14,$id_code,$page3);
+}
+if ($answer15!=''){
+	$num=5;
+	answer($mysqli,$num,$answer15,$id_code,$page3);
+}
+
+
+
 $mysqli->close();
 //------FIN EJECUTAR INSERTS -----------//
 
 
 
 
+?>

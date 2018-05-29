@@ -68,7 +68,7 @@
 					
 		  </div>
 	  </div>
-	   <div class="form-group clonedInput" id="clonedInput" >
+	   <div class="form-group" >
 		<button type="button" class="btn btn-info clone" id="mylove" data-toggle="collapse" data-target="#demo2">Add Survey</button>
 		  <div id="demo2" class="collapse">
 			<div class="form-group">
@@ -118,8 +118,135 @@
 					</div>
 				  </div>
 			</div>
+			
 		  </div>
 	  </div>
+	  
+	  
+	  
+	  
+	  
+	  <div class="form-group" id="secondoriginal">
+		<button type="button" class="btn btn-info clone" id="mylove" data-toggle="collapse" data-target="#demo4">Add Survey</button>
+		  <div id="demo4" class="collapse">
+			<div class="form-group">
+				<label>Question:</label>
+				<input type="text" id="question2" class="form-control" value="Question">
+			</div>
+			<div class="form-group">
+				<label>Page number:</label>
+				<input type="number" id="page2" class="form-control" value="0">
+			</div>
+			<div class="form-group">
+				<label>Position X and Y (px):</label>
+				<input type="number" id="xcor2" class="form-control" value="0">
+				<input type="number" id="ycor2" class="form-control" value="0">	
+			</div>
+			<div class="form-group">
+				<label>Width and Height (px)</label>
+				<input type="number" id="width2" class="form-control" value="0">
+				<input type="number" id="height2" class="form-control" value="0">	
+			</div>
+			<div class="checkbox">
+				<label><input id='multiplechoice2' type="checkbox"> Multiple choice allowed?</label>
+			</div>
+			
+			<div class="form-group">
+				<button type="button" class="btn btn-info"  data-toggle="collapse" data-target="#demo5">Add Answers</button>
+				  <div id="demo5" class="collapse">
+					<div class="form-group">
+						<label>Answer1:</label>
+						<input type="text" id="answer6" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer2:</label>
+						<input type="text"  id="answer7" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer3:</label>
+						<input type="text"   id="answer8" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer4:</label>
+						<input type="text"  id="answer9" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer5:</label>
+						<input type="text" id="answer10" class="form-control" >
+					</div>
+				  </div>
+			</div>
+			
+		  </div>
+	  </div>
+	  
+	  
+	    <div class="form-group" id="secondoriginal">
+		<button type="button" class="btn btn-info clone" id="mylove" data-toggle="collapse" data-target="#demo6">Add Survey</button>
+		  <div id="demo6" class="collapse">
+			<div class="form-group">
+				<label>Question:</label>
+				<input type="text" id="question3" class="form-control" value="Question">
+			</div>
+			<div class="form-group">
+				<label>Page number:</label>
+				<input type="number" id="page3" class="form-control" value="0">
+			</div>
+			<div class="form-group">
+				<label>Position X and Y (px):</label>
+				<input type="number" id="xcor3" class="form-control" value="0">
+				<input type="number" id="ycor3" class="form-control" value="0">	
+			</div>
+			<div class="form-group">
+				<label>Width and Height (px)</label>
+				<input type="number" id="width3" class="form-control" value="0">
+				<input type="number" id="height3" class="form-control" value="0">	
+			</div>
+			<div class="checkbox">
+				<label><input id='multiplechoice3' type="checkbox"> Multiple choice allowed?</label>
+			</div>
+			
+			<div class="form-group">
+				<button type="button" class="btn btn-info"  data-toggle="collapse" data-target="#demo7">Add Answers</button>
+				  <div id="demo7" class="collapse">
+					<div class="form-group">
+						<label>Answer1:</label>
+						<input type="text" id="answer11" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer2:</label>
+						<input type="text"  id="answer12" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer3:</label>
+						<input type="text"   id="answer13" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer4:</label>
+						<input type="text"  id="answer14" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label>Answer5:</label>
+						<input type="text" id="answer15" class="form-control" >
+					</div>
+				  </div>
+			</div>
+			
+		  </div>
+	  </div>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 	</form> 
 	<!--
 	<form id="primaryButton"  action="upload2.php" onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
