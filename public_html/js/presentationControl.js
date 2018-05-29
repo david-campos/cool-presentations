@@ -68,11 +68,9 @@ $(document).ready(()=>{
         startX = touchobj.pageX
         startY = touchobj.pageY
         startTime = new Date().getTime() // record time when finger first makes contact with surface
-        e.preventDefault()
     }, false)
         
     doSwapOn.addEventListener('touchmove', function(e){
-        e.preventDefault() // prevent scrolling when inside DIV
     }, false)
     
     doSwapOn.addEventListener('touchend', function(e){
@@ -85,6 +83,7 @@ $(document).ready(()=>{
         var dir_str = "none";
         var dir_int = 0;
         if(swiperightBol){
+            e.preventDefault();
             if(dist > 0){
                 dir_str = "RIGHT";
                 dir_int = 1;
