@@ -13,8 +13,8 @@ try {
     $lat = $_GET['latitude'];
     $lon = $_GET['longitude'];
     $acc = $_GET['accuracy'];
-    if(preg_match('/^[0-9]*.[0-9]*$/', $lat)!==1 ||
-        preg_match('/^[0-9]*.[0-9]*$/', $lon)!==1 ||
+    if(preg_match('/^-?[0-9]*.[0-9]*$/', $lat)!==1 ||
+        preg_match('/^-?[0-9]*.[0-9]*$/', $lon)!==1 ||
         preg_match('/^[0-9]+$/', $acc)!==1) {
          throw new Exception('Latitude, longitude or accuracy in a wrong format.', 400);   
     }
