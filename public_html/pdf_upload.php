@@ -174,10 +174,16 @@ function prueba($mysqli,$id_code,$name,$start,$fin,$lat,$lon,$access_code,$downl
 
 prueba($mysqli,$id_code,$name,$start,$fin,$lat,$lng,$access_code,$downloable,$user_id);
 
+if($page!=0){
 insert_survey($mysqli,$page,$question,$xcor,$ycor,$open,$multiplechoice,$id_code,$width,$height);
+}
+if($page2!=0){
 insert_survey($mysqli,$page2,$question2,$xcor2,$ycor2,$open2,$multiplechoice2,$id_code,$width2,$height2);
+}
 
+if($page3!=0){
 insert_survey($mysqli,$page3,$question3,$xcor3,$ycor3,$open3,$multiplechoice3,$id_code,$width3,$height3);
+}
 //-------------ANSWERS----------------------//
 
 
@@ -249,9 +255,4 @@ if ($answer15!=''){
 
 
 $mysqli->close();
-//------FIN EJECUTAR INSERTS -----------//
-
-
-
-
 ?>
