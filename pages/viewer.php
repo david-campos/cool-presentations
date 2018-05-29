@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row presentation-controls justify-content-center">
         <button class="btn-primary" id="prev">Previous</button> &nbsp;
         <button class="btn-primary" id="next">Next</button>
         &nbsp; &nbsp;

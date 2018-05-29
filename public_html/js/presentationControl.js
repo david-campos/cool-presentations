@@ -2,7 +2,6 @@
 $(document).ready(()=>{
     var pageRendering = false,
     pageNumPending = null,
-    scale = 10,
     canvas = document.getElementById('the-canvas'),
     ctx = canvas.getContext('2d'),
     overSlides = $('#over-slides');
@@ -128,7 +127,10 @@ $(document).ready(()=>{
 	  pageRendering = true;
 	  // Using promise to fetch the page
 	  pdfDoc.getPage(num).then(function(page) {
-		var viewport = page.getViewport(scale);
+        var desiredWidth = $(canvas).width();
+        var viewport = page.getViewport(1);
+        var scale = desiredWidth / viewport.width;
+        viewport = page.getViewport(scale);
 		canvas.height = viewport.height;
 		canvas.width = viewport.width;
 
@@ -174,7 +176,23 @@ $(document).ready(()=>{
 	}
     
     // Keep the measures of overSlides always right
-    $( window ).resize(function() {
+    $( window ).resize(function(width, height) {
+        if($("body").hasClass("fullscreen")) {
+            let winW = $(window).width();
+            let winH = $(window).height();
+            let width = $(canvas).width();
+            let height = $(canvas).height();
+            // Try to set max height first if width allows it
+            if(winH*width/height < winW) {
+                $(canvas)
+                    .css("height", winH+"px")
+                    .css("width",(winH*width/height)+"px");
+            } else {
+                $(canvas)
+                    .css("height",(winW*height/width)+"px")
+                    .css("width", winW+"px");
+            }
+        }
         overSlides.width($(canvas).width());
         overSlides.height($(canvas).height());
     });

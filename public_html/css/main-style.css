@@ -8,8 +8,24 @@ body {
   background-color: #eee;
 }
 
+body.fullscreen {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
 main {
 	padding-top: 20px;
+}
+
+body.fullscreen main {
+    margin: 0;
+    padding: 0;
+}
+
+body.fullscreen .row {
+    margin: 0;
+    padding: 0;
 }
 
 footer {
@@ -23,6 +39,10 @@ footer {
 
 footer ul {
   list-style-type: none;
+}
+
+body.fullscreen footer, body.fullscreen nav, body.fullscreen .presentation-controls {
+    display: none;
 }
 
 #over-slides {
